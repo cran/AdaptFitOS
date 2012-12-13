@@ -10,7 +10,6 @@
             spar.method = "REML", omit.missing = NULL, Si.b = NULL, weights = NULL,correlation=NULL,control=NULL)
 {
   require("nlme")
-
   random.info <- NULL
   if (!is.null(random)) 
     random.info <- random.read(random, group)
@@ -116,86 +115,98 @@
     }
   }
   group.vec <- col.ones
-  assign("group.vec.Handan", group.vec, pos = 1)
-  assign("X.Declan", X, pos = 1)
+  group.vec.Handan=group.vec
+  X.Declan=X
+  dimnames(X.Declan)[[2]]=paste("X.J",1:ncol(X.Declan),sep="")
+# assign("X.Declan", X, pos = 1)
+# assign("group.vec.Handan", group.vec, pos = 1)
   if (!is.null(Z)) {
-    assign("Z.Jaida", Z, pos = 1)
-    data.fr <- groupedData(y ~ -1 + X.Declan | group.vec.Handan,  data = data.frame(y, X.Declan, Z.Jaida, group.vec.Handan))
-    Z.block <- list()
-    for (i in 1:length(re.block.inds)) Z.block[[i]] <- as.formula(paste("~Z.Jaida[,c(", 
-                                                                        paste(re.block.inds[[i]], collapse = ","), ")]-1"))
+    Z.Jaida=Z
+    dimnames(Z.Jaida)[[2]]=paste("Z.J",1:ncol(Z.Jaida),sep="")
+#    assign("Z.Jaida", Z, pos = 1)
+    datatempOS = data.frame(y, X.Declan, Z.Jaida, group.vec.Handan)
+    formtemp=  as.formula(paste("y ~",paste(c(-1,dimnames(X.Declan)[[2]]),collapse="+")))
+    formtempcond=  as.formula(paste(paste("y ~",paste(c(-1,dimnames(X.Declan)[[2]]),collapse="+")),"| group.vec.Handan"))
+    data.fr <- groupedData(formtempcond,  data = datatempOS)
     if (length(re.block.inds) == 1) {
+    randomform= as.formula(paste("~",paste(c(-1,dimnames(Z.Jaida)[[2]]),collapse="+")))
       if (family == "gaussian")
-           lme.fit <- lme(y ~ -1 + X.Declan, random = pdIdent(~-1 + Z.Jaida), data = data.fr, method = spar.method,correlation=correlation,control=control)
-      
-      if (family != "gaussian") {
-        require("MASS")
-        offs <- spm.info$off.set
-        if(is.null(offs))
-        lme.fit <- glmmPQL(y ~ -1 + X.Declan, random = list(group.vec.Handan = pdIdent(~-1 + 
-                                                              Z.Jaida)), data = data.fr, family = family, 
-                           weights = weights, niter = 30,correlation=correlation,control=control)
-        else
-            lme.fit <- glmmPQL(y ~ -1 + offset(offs)+X.Declan, random = list(group.vec.Handan = pdIdent(~-1 + 
-                                                              Z.Jaida)), data = data.fr, family = family, 
-                           weights = weights, niter = 30,correlation=correlation,control=control)
-          
-      }
+           lme.fit <- lme(formtemp, random = pdIdent(randomform), data = data.fr, method = spar.method,correlation=correlation,control=control)
+#      if (family != "gaussian") {
+#        require("MASS")
+#        offs <- spm.info$off.set
+#        if(is.null(offs))
+#        lme.fit <- glmmPQL(y ~ -1 + X.Declan, random = list(group.vec.Handan = pdIdent(~-1 +
+#                                                              Z.Jaida)), data = data.fr, family = family,
+#                           weights = weights, niter = 30,correlation=correlation,control=control)
+#        else
+#            lme.fit <- glmmPQL(y ~ -1 + offset(offs)+X.Declan, random = list(group.vec.Handan = pdIdent(~-1 +
+#                                                              Z.Jaida)), data = data.fr, family = family,
+#                           weights = weights, niter = 30,correlation=correlation,control=control)
+#
+#      }
     }
     if (length(re.block.inds) > 1) {
-      if (family == "gaussian") 
-        lme.fit <- lme(y ~ -1 + X.Declan, random = list(group.vec.Handan = pdBlocked(Z.block, 
-                                                          pdClass = rep("pdIdent", length(Z.block)))), 
-                       data = data.fr, method = spar.method,correlation=correlation,control=control)
-      if (family != "gaussian") {
-        require("MASS")
-        offs <- spm.info$off.set
-        if(is.null(offs))
-        lme.fit <- glmmPQL(y ~ -1 + X.Declan, random = list(group.vec.Handan = pdBlocked(Z.block, 
-                                                              pdClass = rep("pdIdent", length(Z.block)))), 
-                           data = data.fr, family = family, weights = weights, 
-                           niter = 30,correlation=correlation,control=control)
-        else
-                  lme.fit <- glmmPQL(y ~ -1 + offset(offs)+X.Declan, random = list(group.vec.Handan = pdBlocked(Z.block, 
-                                                              pdClass = rep("pdIdent", length(Z.block)))), 
-                           data = data.fr, family = family, weights = weights, 
-                           niter = 30,correlation=correlation,control=control)
+   Z.block <- list()
+  #  for (i in 1:length(re.block.inds)) Z.block[[i]] <- as.formula( paste("~Z.Jaida[,c(",paste(re.block.inds[[i]], collapse = ","), ")]-1"))
+     for (i in 1:length(re.block.inds))  Z.block[[i]]= as.formula(paste("~",paste(c(-1,dimnames(Z.Jaida)[[2]][re.block.inds[[i]]]),collapse="+")))
 
-      }
+      if (family == "gaussian")
+        lme.fit <- lme(formtemp, random = list(group.vec.Handan = pdBlocked(Z.block,
+                                                          pdClass = rep("pdIdent", length(Z.block)))),
+                       data = data.fr, method = spar.method,correlation=correlation,control=control)
+#   if (family != "gaussian") {
+#        require("MASS")
+#        offs <- spm.info$off.set
+#        if(is.null(offs))
+#        lme.fit <- glmmPQL(y ~ -1 + X.Declan, random = list(group.vec.Handan = pdBlocked(Z.block,
+#                                                              pdClass = rep("pdIdent", length(Z.block)))),
+#                           data = data.fr, family = family, weights = weights,
+#                           niter = 30,correlation=correlation,control=control)
+#        else
+#                  lme.fit <- glmmPQL(y ~ -1 + offset(offs)+X.Declan, random = list(group.vec.Handan = pdBlocked(Z.block,
+#                                                              pdClass = rep("pdIdent", length(Z.block)))),
+#                           data = data.fr, family = family, weights = weights,
+#                           niter = 30,correlation=correlation,control=control)
+#
+#      }
     }
     lme.fit <- c(lme.fit, list(sigma = summary(lme.fit)$sigma))
   }
   if (is.null(Z)) {
-    data.fr <- cbind(y, X.Declan, group.vec.Handan)
+  print(1)
+      X.Declan=X
+      dimnames(X.Declan)[[2]]=paste("X.J",1:ncol(X.Declan),sep="")
+      data.fr <- data.frame(cbind(y,X.Declan,group.vec.Handan))
+      print(data.fr)
+     formtemp=  as.formula(paste("y ~",paste(c(-1,dimnames(X.Declan)[[2]]),collapse="+")))
     G <- NULL
     if (family == "gaussian") {
-      if (!is.null(correlation))
-      lm.fit <- gls(y ~ -1 + X.Declan,correlation=correlation)
-      else
-        lm.fit <- gls(y ~ -1 + X.Declan,correlation=correlation)
-      lme.fit <- list(coef = list(fixed = lm.fit$coef), 
-                      sigma = summary(lm.fit)$sigma)
-    }
-    if (family != "gaussian") {
-      if (!is.null(spm.info$off.set)) {
-        if (!is.null(X)) 
-          glm.fit <- glm(y ~ -1 + X.Declan, offset = spm.info$off.set, 
-                         family = family)
-        if (is.null(X)) 
-          glm.fit <- glm(y ~ 1, offset = spm.info$off.set, 
-                         family = family)
-      }
-      if (is.null(spm.info$off.set)) {
-        if (!is.null(X)) 
-          glm.fit <- glm(y ~ -1 + X.Declan, family = family)
-        if (is.null(X)) 
-          glm.fit <- glm(y ~ 1, family = family)
-      }
-      lme.fit <- list()
-      lme.fit$coef$fixed <- glm.fit$coef
-      lme.fit$coef$random <- NULL
-      lme.fit$loglik <- NULL
-    }
+      if (!is.null(correlation)) lm.fit <- gls(formtemp,correlation=correlation,data=data.fr)
+      else                       lm.fit <- gls(formtemp,correlation=correlation,data=data.fr)
+      
+      lme.fit <- list(coef = list(fixed = lm.fit$coef), sigma = summary(lm.fit)$sigma)
+  }
+ #   if (family != "gaussian") {
+#      if (!is.null(spm.info$off.set)) {
+#        if (!is.null(X))
+#          glm.fit <- glm(y ~ -1 + X.Declan, offset = spm.info$off.set,
+#                         family = family)
+#        if (is.null(X))
+#          glm.fit <- glm(y ~ 1, offset = spm.info$off.set,
+#                         family = family)
+#      }
+#      if (is.null(spm.info$off.set)) {
+#        if (!is.null(X))
+#          glm.fit <- glm(y ~ -1 + X.Declan, family = family)
+#        if (is.null(X))
+#          glm.fit <- glm(y ~ 1, family = family)
+#      }
+#      lme.fit <- list()
+#      lme.fit$coef$fixed <- glm.fit$coef
+#      lme.fit$coef$random <- NULL
+#      lme.fit$loglik <- NULL
+#    }
   }
   RR <- NULL
   if (!is.null(Z)) {
@@ -358,10 +369,14 @@
     lme.fit <- c(lme.fit, list(fitted = fitted, residuals = resids, 
                                deviance = Dev, deviance.wls = Dev.wls))
   }
-  rm("group.vec.Handan", pos = 1)
-  rm("X.Declan", pos = 1)
-  if (!is.null(Z)) 
-    rm("Z.Jaida", pos = 1)
+#  rm("group.vec.Handan", pos = 1)
+#  rm("X.Declan", pos = 1)
+#  rm("group.vec.Handan")
+#  rm("X.Declan")
+#  if (!is.null(Z)) {
+#    rm("Z.Jaida", pos = 1)
+#    rm("Z.Jaida")
+#  }
   names(lme.fit$coef$fixed) <- NULL
   names(lme.fit$coef$random) <- NULL
   class(lme.fit)="lme"

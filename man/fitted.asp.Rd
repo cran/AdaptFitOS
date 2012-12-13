@@ -43,12 +43,14 @@ fitted regression model.}
 }
 
 \examples{
+\dontrun{
 library(SemiPar)
 data(fossil)
 attach(fossil)
 fit <- asp2(strontium.ratio~f(age))
-plot(fit)
-points(age,fitted(fit),col="red")
+plot(fit, bands=FALSE)
+points(age,fitted(fit)-fit$coef[1],col="red")
+}
 }
 \keyword{models} \keyword{smooth} \keyword{regression} 
 

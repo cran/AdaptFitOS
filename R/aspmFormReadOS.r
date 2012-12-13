@@ -85,7 +85,7 @@
        else pen$basis <- pen$basis[1]
       }
       if (type == "krige") {
-        out <- aspmKrigeRead(term)
+        out <- aspmKrigeReadOS(term)
         krige$name <- out$name
         krige$x <- out$var
         krige$adf <- out$adf

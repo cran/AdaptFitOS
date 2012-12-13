@@ -7,7 +7,7 @@
           #  weights = NULL,correlation=NULL,
             control=NULL){
   require("SemiPar")
-epsilon.fit=epsilon.theta=NULL
+  epsilon.fit=epsilon.theta=NULL
 
 
 #if (family != "gaussian") stop("Only Gaussian response supported. Use AdaptFit for GAMs (without simultaneous confidence bands).")
@@ -28,7 +28,6 @@ epsilon.fit=epsilon.theta=NULL
   model.matrices <- list(Xb = Xb, Zb = Zb, Wb = Wb)
 
 #define weights for grouped binomial data
-
 #  if ((family == "binomial") & (is.null(weights)))
 #    weights = rep(1, nrow(Xb))
 #  if (!is.null(dim(spm.info$y))) {
@@ -37,7 +36,6 @@ epsilon.fit=epsilon.theta=NULL
 #  }
 
 #get non-adaptive fit 
-
   aspm.obj <- aspmOS(spm.info, random=NULL, group=NULL, family="gaussian", spar.method, omit.missing,correlation=NULL,weights=NULL,control=control)
 
 #  if (family != "gaussian") aspm.obj$fit$fitted <- NULL
@@ -51,7 +49,6 @@ epsilon.fit=epsilon.theta=NULL
   else y.cov <- NULL
 
 #get the initial estimates for the variance of random effects
-
   b.hat <- as.vector(unlist(aspm.obj$fit$coef$random))
   kc <- kb <- theta <- sigma.theta <- knots.theta <- adap.ind <- theta.ind <- NULL
   Wc <- list()
@@ -60,29 +57,22 @@ epsilon.fit=epsilon.theta=NULL
   adap=FALSE
   if (!is.null(spm.info$pen))     adap.ind <- spm.info$pen$adap
   if (!is.null(spm.info$krige))   adap.ind <- c(adap.ind, spm.info$krige$adap)
- # if (sum(adap.ind) < 1)          adap <- FALSE
-   if (sum(adap.ind) >= 1)       adap=TRUE
- #   print(adap.ind)
+  if (sum(adap.ind) >= 1)       adap=TRUE
   if ((!is.null(spm.info$pen) | !is.null(spm.info$krige)) & (adap == TRUE)) {
     if (!is.null(spm.info$pen)) 
       for (l in 1:length(spm.info$pen$name)) {
         knot <- design.info$spm.info$pen$knots[[l]]
         var.knots <- spm.info$pen$var.knots[[l]]
-        theta.frame <- list(knot = knot, var.knots = var.knots)
-        attach(theta.frame)
         if (spm.info$pen$var.basis[[l]]== "trunc.poly"){cat("\nSetting var.basis=\"tps\",var.degree=3\n\n");spm.info$pen$var.basis[[l]]="tps";spm.info$pen$var.degree[[l]]=3}
         if (!is.null(var.knots))
-          design.info.theta <- spmDesignOS(aspmFormReadOS(as.formula(paste("1~f(knot,basis='",spm.info$pen$var.basis[[l]],"',degree=",spm.info$pen$var.degree[[l]],",knots=var.knots)",sep="")), omit.missing))
+            design.info.theta <- spmDesignOS(aspmFormReadOS(as.formula(paste("1~f(knot,basis='",spm.info$pen$var.basis[[l]],"',degree=",spm.info$pen$var.degree[[l]],",knots=var.knots)",sep="")), omit.missing))
         else design.info.theta <- spmDesignOS(aspmFormReadOS(as.formula(paste("1~f(knot,basis='",spm.info$pen$var.basis[[l]],"',degree=",spm.info$pen$var.degree[[l]],")",sep="")), omit.missing))
-        detach(theta.frame)
         Xc <- design.info.theta$X
         Zc <- design.info.theta$Z
         Wc[[l]] <- cbind(Xc, Zc)
         kc <- c(kc, ncol(design.info.theta$X), ncol(design.info.theta$Z))
         kb <- c(kb, nrow(design.info.theta$Z))
         all <- rep(1, nrow(Zc))
-        assign("Xc", Xc)
-        assign("Zc", Zc)
         bb <- b.hat[stb:(kb[l] + stb - 1)]
         b.hat.var <- log((bb - mean(bb))^2/var(bb))
         b.fit <- lme(b.hat.var ~ Xc - 1, random = list(all = pdIdent(~Zc - 1)))
@@ -94,32 +84,32 @@ epsilon.fit=epsilon.theta=NULL
       }
     if (!is.null(spm.info$krige)) {
 stop("Surface estimation currently not supported in AdaptFitOS. Use AdaptFit")
-      knot <- spm.info$krige$knots
-      var.knots <- spm.info$krige$var.knot
-      knots1 <- knot[, 1]
-      knots2 <- knot[, 2]
-      theta.frame <- list(knots1 = knots1, knots2 = knots2, 
-                          var.knots = var.knots)
-      attach(theta.frame)
-      if (!is.null(var.knots))
-        design.info.theta <- spmDesignOS(aspmFormReadOS(as.formula(paste("1~f(knots1,knots2,knots=var.knots)")), omit.missing))
-      else design.info.theta <- spmDesignOS(aspmFormReadOS(as.formula(paste("1~f(knots1,knots2)")), omit.missing))
-      Xc <- design.info.theta$X
-      Zc <- design.info.theta$Z
-      Wc[[l + 1]] <- cbind(Xc, Zc)
-      kc <- c(kc, ncol(design.info.theta$X), ncol(design.info.theta$Z))
-      kb <- c(kb, nrow(design.info.theta$Z))
-      all <- rep(1, nrow(Zc))
-      assign("Xc", Xc)
-      assign("Zc", Zc)
-      bb <- b.hat[stb:(kb[l + 1] + stb - 1)]
-      b.hat.var <- log((bb - mean(bb))^2/var(bb))
-      b.fit <- lme(b.hat.var ~ Xc - 1, random = list(all = pdIdent(~Zc - 1)))
-      theta <- c(theta, c(as.vector(b.fit$coef$fixed), as.vector(unlist(b.fit$coef$random))))
-      theta.ind <- c(theta.ind, rep(adap.ind[l + 1], length(theta)))
-      sigma.theta <- c(sigma.theta, as.vector(b.fit$sigma^2 * exp(2 * unlist(b.fit$modelStruct$reStruct))))
-      knots.theta <- c(knots.theta, list(design.info.theta$spm.info$krige$knots[[1]]))
-      detach(theta.frame)
+#      knot <- spm.info$krige$knots
+#      var.knots <- spm.info$krige$var.knot
+#      knots1 <- knot[, 1]
+#      knots2 <- knot[, 2]
+#      theta.frame <- list(knots1 = knots1, knots2 = knots2,
+#                          var.knots = var.knots)
+#      attach(theta.frame)
+#      if (!is.null(var.knots))
+#        design.info.theta <- spmDesignOS(aspmFormReadOS(as.formula(paste("1~f(knots1,knots2,knots=var.knots)")), omit.missing))
+#      else design.info.theta <- spmDesignOS(aspmFormReadOS(as.formula(paste("1~f(knots1,knots2)")), omit.missing))
+#      Xc <- design.info.theta$X
+#      Zc <- design.info.theta$Z
+#      Wc[[l + 1]] <- cbind(Xc, Zc)
+#      kc <- c(kc, ncol(design.info.theta$X), ncol(design.info.theta$Z))
+#      kb <- c(kb, nrow(design.info.theta$Z))
+#      all <- rep(1, nrow(Zc))
+#      assign("Xc", Xc)
+#      assign("Zc", Zc)
+#      bb <- b.hat[stb:(kb[l + 1] + stb - 1)]
+#      b.hat.var <- log((bb - mean(bb))^2/var(bb))
+#      b.fit <- lme(b.hat.var ~ Xc - 1, random = list(all = pdIdent(~Zc - 1)))
+#      theta <- c(theta, c(as.vector(b.fit$coef$fixed), as.vector(unlist(b.fit$coef$random))))
+#      theta.ind <- c(theta.ind, rep(adap.ind[l + 1], length(theta)))
+#      sigma.theta <- c(sigma.theta, as.vector(b.fit$sigma^2 * exp(2 * unlist(b.fit$modelStruct$reStruct))))
+#      knots.theta <- c(knots.theta, list(design.info.theta$spm.info$krige$knots[[1]]))
+#      detach(theta.frame)
     }
 
 
@@ -161,22 +151,17 @@ stop("Surface estimation currently not supported in AdaptFitOS. Use AdaptFit")
 	#obtain remaining estimate with the estimated variance of random effects
 
       aspm.obj <- aspmOS(spm.info, random=NULL, group=NULL, family="gaussian", spar.method, omit.missing, Si.b = ran.var, weights = NULL,correlation=NULL,control=control)
-#      if (family != "gaussian")
-#        aspm.obj$fit$fitted <- NULL
+#      if (family != "gaussian")  aspm.obj$fit$fitted <- NULL
       fit1 <- aspm.obj$fit$fitted
       epsilon.fit <- sum((fit - fit1)^2)/sum(fit^2)
       epsilon.theta=theta.obj$epsilon.theta
       fit <- fit1
 
   #exit if epsilon is small
-
-      if (epsilon.fit <= tol) 
-        break
+      if (epsilon.fit <= tol) break
       if (i == niter)
-        
           if (returnFit==TRUE) {cat("Warning: Iteration limit reached without convergence");break}
-          else
-            stop ("Iteration limit reached without convergence")
+          else  stop ("Iteration limit reached without convergence")
     }
 
 #extract objects for the output related to the adaptive fit

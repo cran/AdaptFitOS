@@ -58,21 +58,21 @@ epsilon.fit=epsilon.theta=NULL
       for (l in 1:length(spm.info$pen$name)) {
         knot <- design.info$spm.info$pen$knots[[l]]
         var.knots <- spm.info$pen$var.knots[[l]]
-        theta.frame <- list(knot = knot, var.knots = var.knots)
-        attach(theta.frame)
+        #theta.frame <- list(knot = knot, var.knots = var.knots)
+        #attach(theta.frame)
         if (spm.info$pen$var.basis[[l]]== "trunc.poly"){cat("\nSetting var.basis=\"tps\",var.degree=3\n\n");spm.info$pen$var.basis[[l]]="tps";spm.info$pen$var.degree[[l]]=3}
         if (!is.null(var.knots))
           design.info.theta <- spmDesignOS(aspmFormReadOS(as.formula(paste("1~f(knot,basis='",spm.info$pen$var.basis[[l]],"',degree=",spm.info$pen$var.degree[[l]],",knots=var.knots)",sep="")), omit.missing))
         else design.info.theta <- spmDesignOS(aspmFormReadOS(as.formula(paste("1~f(knot,basis='",spm.info$pen$var.basis[[l]],"',degree=",spm.info$pen$var.degree[[l]],")",sep="")), omit.missing))
-        detach(theta.frame)
+         #detach(theta.frame)
         Xc <- design.info.theta$X
         Zc <- design.info.theta$Z
         Wc[[l]] <- cbind(Xc, Zc)
         kc <- c(kc, ncol(design.info.theta$X), ncol(design.info.theta$Z))
         kb <- c(kb, nrow(design.info.theta$Z))
         all <- rep(1, nrow(Zc))
-        assign("Xc", Xc)
-        assign("Zc", Zc)
+       # assign("Xc", Xc)
+       # assign("Zc", Zc)
         bb <- b.hat[stb:(kb[l] + stb - 1)]
         b.hat.var <- log((bb - mean(bb))^2/var(bb))
         b.fit <- lme(b.hat.var ~ Xc - 1, random = list(all = pdIdent(~Zc - 1)))
@@ -87,20 +87,20 @@ epsilon.fit=epsilon.theta=NULL
       var.knots <- spm.info$krige$var.knot
       knots1 <- knot[, 1]
       knots2 <- knot[, 2]
-      theta.frame <- list(knots1 = knots1, knots2 = knots2, 
-                          var.knots = var.knots)
-      attach(theta.frame)
+  #    theta.frame <- list(knots1 = knots1, knots2 = knots2,
+  #                        var.knots = var.knots)
+      #  attach(theta.frame)
       if (!is.null(var.knots)) 
         design.info.theta <- spmDesignOS(aspmFormReadOS(as.formula(paste("1~f(knots1,knots2,knots=var.knots)")), omit.missing))
-      else design.info.theta <- spmDesignOS(aspmFormReadOS(as.formula(paste("1~f(knots1,knots2)")), omit.missing))
+        else design.info.theta <- spmDesignOS(aspmFormReadOS(as.formula(paste("1~f(knots1,knots2)")), omit.missing))
       Xc <- design.info.theta$X
       Zc <- design.info.theta$Z
       Wc[[l + 1]] <- cbind(Xc, Zc)
       kc <- c(kc, ncol(design.info.theta$X), ncol(design.info.theta$Z))
       kb <- c(kb, nrow(design.info.theta$Z))
       all <- rep(1, nrow(Zc))
-      assign("Xc", Xc)
-      assign("Zc", Zc)
+    #  assign("Xc", Xc)
+    #  assign("Zc", Zc)
       bb <- b.hat[stb:(kb[l + 1] + stb - 1)]
       b.hat.var <- log((bb - mean(bb))^2/var(bb))
       b.fit <- lme(b.hat.var ~ Xc - 1, random = list(all = pdIdent(~Zc - 1)))
@@ -108,7 +108,7 @@ epsilon.fit=epsilon.theta=NULL
       theta.ind <- c(theta.ind, rep(adap.ind[l + 1], length(theta)))
       sigma.theta <- c(sigma.theta, as.vector(b.fit$sigma^2 * exp(2 * unlist(b.fit$modelStruct$reStruct))))
       knots.theta <- c(knots.theta, list(design.info.theta$spm.info$krige$knots[[1]]))
-      detach(theta.frame)
+    #  detach(theta.frame)
     }
 
 

@@ -201,53 +201,59 @@ spmOS <- function(form,random=NULL,group=NULL,family="gaussian",
 
    # Assign unusual names to formula variables
    # to overcome the `scoping' problem.
-
-   assign("dummy.group.vec.Handan",dummy.group.vec,pos=1)
-   assign("fdummy.group.vec.Handan",fdummy.group.vec,pos=1)
-   assign("group.Handan",group,pos=1)
-   assign("X.Declan",X,pos=1)
+   dummy.group.vec.Handan=dummy.group.vec
+    X.Declan=X
+    dimnames(X.Declan)[[2]]=paste("X.J",1:ncol(X.Declan),sep="")
+#   assign("dummy.group.vec.Handan",dummy.group.vec,pos=1)
+#   assign("fdummy.group.vec.Handan",fdummy.group.vec,pos=1)
+#   assign("group.Handan",group,pos=1)
+#   assign("X.Declan",X,pos=1)
 
    if (!is.null(Z))
    {
       if (is.null(random)) # Calls to lme() and glmmPQL() are of 1 type.
       {
-         assign("Z.Jaida",Z,pos=1)
-         data.fr <- groupedData(y~-1+X.Declan|dummy.group.vec.Handan,
-                    data=data.frame(y,X.Declan,Z.Jaida,
-                    dummy.group.vec.Handan))
+        Z.Jaida=Z
+         dimnames(Z.Jaida)[[2]]=paste("Z.J",1:ncol(Z.Jaida),sep="")
+         #assign("Z.Jaida",Z,pos=1)
+        datatempOS = data.frame(y, X.Declan, Z.Jaida, dummy.group.vec.Handan)
+        formtemp=  as.formula(paste("y ~",paste(c(-1,dimnames(X.Declan)[[2]]),collapse="+")))
+        formtempcond=  as.formula(paste(paste("y ~",paste(c(-1,dimnames(X.Declan)[[2]]),collapse="+")),"| dummy.group.vec.Handan"))
+        data.fr <- groupedData(formtempcond,  data = datatempOS)
+ #       data.fr <- groupedData(y~-1+X.Declan|dummy.group.vec.Handan,
+#                    data=data.frame(y,X.Declan,Z.Jaida,
+#                    dummy.group.vec.Handan))
 
-         Z.block  <-  list()
-         for (i in 1:length(re.block.inds))
-            Z.block[[i]] <- as.formula(paste("~Z.Jaida[,c(",paste(
-                                 re.block.inds[[i]],collapse=","),")]-1"))
 
          if (length(re.block.inds)==1)
          {
-            if (family=="gaussian")
-               lme.fit <- lme(y~-1+X.Declan,random=pdIdent(~-1+Z.Jaida),
-                              data=data.fr,method=spar.method)
+           randomform= as.formula(paste("~",paste(c(-1,dimnames(Z.Jaida)[[2]]),collapse="+")))
+          if (family=="gaussian")
+            lme.fit <- lme(formtemp, random = pdIdent(randomform), data = data.fr, method = spar.method)
+ #             lme.fit <- lme(y~-1+X.Declan,random=pdIdent(~-1+Z.Jaida),
+  #                            data=data.fr,method=spar.method)
             if (family!="gaussian")
             {
                require("MASS")
-               lme.fit <- glmmPQL(y~-1+X.Declan,
-               random=list(dummy.group.vec.Handan=pdIdent(~-1+Z.Jaida)),
+               lme.fit <- glmmPQL(formtemp,
+               random=list(dummy.group.vec.Handan=pdIdent(randomform)),
                            data=data.fr,family=family)
             }
          }
      
          if (length(re.block.inds)>1)
          {
+            Z.block <- list()
+           for (i in 1:length(re.block.inds))  Z.block[[i]]= as.formula(paste("~",paste(c(-1,dimnames(Z.Jaida)[[2]][re.block.inds[[i]]]),collapse="+")))
+
             if (family=="gaussian")
-               lme.fit <- lme(y~-1+X.Declan,
-                           random=list(dummy.group.vec.Handan=
-                           pdBlocked(Z.block,
-                           pdClass=rep("pdIdent",length(Z.block)))),
-                           data=data.fr,method=spar.method)
+              lme.fit <- lme(formtemp, random = list(dummy.group.vec.Handan = pdBlocked(Z.block,
+                       pdClass = rep("pdIdent", length(Z.block)))), data = data.fr, method = spar.method)
 
             if (family!="gaussian")
             {
                require("MASS")
-               lme.fit <- glmmPQL(y~-1+X.Declan,
+               lme.fit <- glmmPQL(formtemp,
                            random=list(dummy.group.vec.Handan=
                            pdBlocked(Z.block,pdClass=
                            rep("pdIdent",length(Z.block)))),
@@ -258,16 +264,15 @@ spmOS <- function(form,random=NULL,group=NULL,family="gaussian",
 
       if (!is.null(random)) # Calls to lme() and glmmPQL() are of other type.
       {
-         assign("Z.Jaida",Z,pos=1)
-         assign("Z.spline.Jaida",Z.spline,pos=1)
-         data.fr <- groupedData(y~-1+X.Declan|dummy.group.vec.Handan,
-                    data=data.frame(y,X.Declan,Z.Jaida,
-                    dummy.group.vec.Handan))
+        Z.Jaida=Z
+        Z.spline.Jaida=Z
+          dimnames(Z.spline.Jaida)[[2]]=dimnames(Z.Jaida)[[2]]=paste("Z.J",1:ncol(Z.Jaida),sep="")
+         #assign("Z.Jaida",Z,pos=1)
+        datatempOS = data.frame(y, X.Declan, Z.Jaida, dummy.group.vec.Handan)
+        formtemp=  as.formula(paste("y ~",paste(c(-1,dimnames(X.Declan)[[2]]),collapse="+")))
+        formtempcond=  as.formula(paste(paste("y ~",paste(c(-1,dimnames(X.Declan)[[2]]),collapse="+")),"| dummy.group.vec.Handan"))
+        data.fr <- groupedData(formtempcond,  data = datatempOS)
 
-         Z.block  <-  list()
-         for (i in 1:length(re.block.inds))
-            Z.block[[i]] <- as.formula(paste("~Z.Jaida[,c(",paste(
-                                 re.block.inds[[i]],collapse=","),")]-1"))
 
          if (length(re.block.inds)==1)  # Must be parametric random
                                         # effects model.
@@ -284,26 +289,30 @@ spmOS <- function(form,random=NULL,group=NULL,family="gaussian",
      
          if (length(re.block.inds)>1)
          {
-            if (family=="gaussian")
+       Z.block <- list()
+           for (i in 1:length(re.block.inds))  Z.block[[i]]= as.formula(paste("~",paste(c(-1,dimnames(Z.Jaida)[[2]][re.block.inds[[i]]]),collapse="+")))
+
+
+          if (family=="gaussian")
             {
 
                Z.block <- list(list(fdummy.group.vec.Handan
-                               =pdIdent(~Z.spline.Jaida-1)),
+                               =pdIdent( as.formula(paste("~",paste(c(-1,dimnames(Z.spline.Jaida)[[2]]),collapse="+"))))),
                                list(group.Handan=pdIdent(~1)))
 
                Z.block <- unlist(Z.block,recursive=FALSE)
-               data.fr <- groupedData(y~-1+X.Declan|fdummy.group.vec.Handan,
+               data.fr <- groupedData(as.formula(paste(paste("y ~",paste(c(-1,dimnames(X.Declan)[[2]]),collapse="+")),"| fdummy.group.vec.Handan")),
                           data=data.frame(y,X.Declan,Z.spline.Jaida,group))
 
 
-               lme.fit <- lme(y~-1+X.Declan,data=data.fr,random=Z.block,
+               lme.fit <- lme(formtemp,data=data.fr,random=Z.block,
                               method=spar.method)
             } 
 
             if (family!="gaussian")
             {
                require("MASS")
-               lme.fit <- glmmPQL(y~-1+X.Declan,
+               lme.fit <- glmmPQL(formtemp,
                            random=list(dummy.group.vec.Handan=
                            pdBlocked(Z.block,pdClass=
                            rep("pdIdent",length(Z.block)))),
@@ -319,13 +328,16 @@ spmOS <- function(form,random=NULL,group=NULL,family="gaussian",
 
    if (is.null(Z))
    {      
-      data.fr <- cbind(y,X.Declan,dummy.group.vec.Handan)
+      X.Declan=X
+      dimnames(X.Declan)[[2]]=paste("X.J",1:ncol(X.Declan),sep="")
+      data.fr <- data.frame(cbind(y,X.Declan,dummy.group.vec.Handan))
       G <- NULL
+      formtemp=  as.formula(paste("y ~",paste(c(-1,dimnames(X.Declan)[[2]]),collapse="+")))
 
       if (family=="gaussian")
       {
 
-         lm.fit <- lm(y~-1+X.Declan)
+         lm.fit <- lm(formtemp,data=data.fr)
          lme.fit <- list(coef=list(fixed=lm.fit$coef),
                          sigma=summary(lm.fit)$sigma)
       }
@@ -335,7 +347,7 @@ spmOS <- function(form,random=NULL,group=NULL,family="gaussian",
          if (!is.null(spm.info$off.set))
          {
             if (!is.null(X))
-               glm.fit <- glm(y~-1+X.Declan,
+               glm.fit <- glm(formtemp,
                               offset=spm.info$off.set,family=family)
             if (is.null(X))
                glm.fit <- glm(y~1,offset=spm.info$off.set,family=family)
@@ -344,7 +356,7 @@ spmOS <- function(form,random=NULL,group=NULL,family="gaussian",
          if (is.null(spm.info$off.set))
          {
             if (!is.null(X))
-               glm.fit <- glm(y~-1+X.Declan,family=family)
+               glm.fit <- glm(formtemp,family=family)
             if (is.null(X))
                glm.fit <- glm(y~1,family=family)
          }

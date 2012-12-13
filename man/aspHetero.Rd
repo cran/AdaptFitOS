@@ -34,6 +34,7 @@ Manuel Wiesenfarth \email{mwiesen at gwdg de}
 }
 
 \examples{
+\dontrun{
 attach(mcycle)
 
 y=accel
@@ -43,11 +44,12 @@ kn1 <- default.knots(times,20)
 
 
 # fit model with varying residual variance
-fith=aspHetero(fit,times,tol=1e-10)
+fith=aspHetero(fit,times,tol=1e-8)
 op <- par(mfrow = c(1,3))
 plot(fit);plot(fith)
 #sigma() returns the fitted varying residual variance
 plot(sort(times),sigma(fith)[order(times)],type="l")
 par(op)
+}
 }
 \keyword{smooth}

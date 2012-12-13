@@ -42,24 +42,19 @@ standard error estimates are also obtained.}
 library(SemiPar)
 data(fossil)
 attach(fossil)
-fit <- asp2(strontium.ratio~f(age))
+fit <- asp2(strontium.ratio~f(age, basis="tps"))
 newdata.age <- data.frame(age=c(90,100,110,120,130))
 preds <-  predict(fit,newdata=newdata.age,se=TRUE)
 print(preds)
 
-plot(fit,xlim=c(90,130))
-points(unlist(newdata.age),preds$fit,col="red")
-points(unlist(newdata.age),preds$fit+2*preds$se,col="blue")
-points(unlist(newdata.age),preds$fit-2*preds$se,col="green")
-
 # Use predict to avoid centering of smooths in case of scatterplot smoothing
-  fit <- asp2(strontium.ratio~f(age,basis="tps",adap=FALSE))
+  fit <- asp2(strontium.ratio~f(age,basis="tps"))
   newdata.age <-data.frame(age=seq(90,130,length.out=50) )
-  preds <- predict(fit,newdata=newdata.age,se=FALSE)
+  preds <- predict(fit,newdata=newdata.age,se=TRUE)
   plot(age,strontium.ratio)
-  lines(newdata.age$age,preds,col="red")
-
-
+  lines(newdata.age$age,preds$fit,col="red")
+  lines(unlist(newdata.age),preds$fit+2*preds$se,col="blue")
+  lines(unlist(newdata.age),preds$fit-2*preds$se,col="green")
 }
 \keyword{models} \keyword{smooth} \keyword{regression} 
 

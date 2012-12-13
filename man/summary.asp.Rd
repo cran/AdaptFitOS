@@ -49,12 +49,14 @@ Direct Simultaneous Inference in Additive Models and its Application to Model Un
 }
 
 \examples{
+\dontrun{
 library(SemiPar)
 data(onions)
 attach(onions)
 log.yield <- log(yield)
-fit <- asp2(log.yield~location+f(dens))
+fit <- asp2(log.yield~location+f(dens, degree=c(3,2)))
 summary(fit,test1=TRUE,test2=TRUE)
+}
 }
 \keyword{models} \keyword{smooth} \keyword{regression} 
 

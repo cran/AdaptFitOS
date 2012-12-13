@@ -9,7 +9,7 @@ arg.searchOS <- function(string,arg.name)
 
    out <- break.string(string,arg.name)
 
-   # Check that arg.name appears in 
+   # Check that arg.name appears in
    # string
 
    if (length(out)==1) present <- FALSE

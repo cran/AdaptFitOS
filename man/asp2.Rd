@@ -80,6 +80,7 @@ Tatyana Krivobokova \email{tkrivob at gwdg.de}
 \code{\link{lme}} (in package `nlme')
 }
 \examples{
+\dontrun{
 ############
 # Examples as in package AdaptFit
   ## scatterplot smoothing
@@ -214,6 +215,7 @@ Tatyana Krivobokova \email{tkrivob at gwdg.de}
     #x11();plot(fit2b,select=1,drv=1)
   # different style
     plot(scb2bdrv,select=1,scb.lty="blank", shade=TRUE,shade.col="steelblue")
+}
 }
 \keyword{nonlinear} \keyword{models} \keyword{smooth} \keyword{regression}\keyword{adaptive}
 

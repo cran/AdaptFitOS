@@ -24,6 +24,8 @@
 \alias{spmOS}
 \alias{scbTest}
 \alias{plot.scbTest}
+\alias{spmArgReadOS}
+\alias{aspmKrigeReadOS}
 
 \title{Internal AdaptFitOS objects}
 \description{Internal functions}
