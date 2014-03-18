@@ -5,7 +5,6 @@
 "aspOS" <-  function (form, adap = TRUE, random = NULL, group = NULL, family = "gaussian",
             spar.method = "REML", omit.missing = NULL, niter = 20, niter.var = 50,tol=1e-6, tol.theta=1e-6,returnFit=FALSE,
             weights = NULL,correlation=NULL,control=NULL){
-  require("SemiPar")
 epsilon.fit=epsilon.theta=NULL
 
 #read the formula

@@ -7,7 +7,7 @@ formals(Predict.matrix) <- c(formals(Predict.matrix), alist(... = ))
 #p-splines with truncated polynomials
 `smooth.construct.tl.smooth.spec` <-
 function(object,data,knots)
-{ require(mgcv)
+{ 
   m<-object$p.order # p+1
   if (is.na(m)) m<-3
   if (m==1)  {warning("for estimation the order of the spline was set to its default 3"); m <- 3}
@@ -42,7 +42,6 @@ function(object,data,knots)
 function(object,data,...)
 # prediction method function for the p.spline smooth class
 { 
-  require(mgcv)
   x <- get.var(object$term,data)
   m=object$m
   k=object$knots

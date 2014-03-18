@@ -5,7 +5,7 @@
 # required for the fit.
 
 "aspmFormReadOS" <-
-  function (form, omit.missing = FALSE) 
+  function (form, omit.missing = FALSE,constrasts=NULL) 
 {
   char.vec <- as.character(form)
   resp.name <- char.vec[2]
@@ -15,6 +15,7 @@
   rhs <- rm.char(rhs, "\t")
   rhs <- break.string(rhs, "+")
   lin <- list()
+  constrasts <-list()
   pen <- list()
   krige <- list()
   off.set <- NULL
@@ -50,7 +51,10 @@
         off.set <- eval(parse(text = term))
       if (type == "lin") {
         if (is.factor(eval(parse(text = term)))){
-          temp=model.matrix(as.formula(paste("~",term)))[,-1]
+          temp=model.matrix(as.formula(paste("~",term)),constrasts=contrasts)
+          lin$contrasts <- c(lin$contrasts, attr(temp, "contrasts")[[term]])
+          names(lin$contrasts)[[length( lin$contrasts)]]=term
+          temp=temp[,-1,drop=F]
           lin$name <- c(lin$name, dimnames(temp)[[2]])
           temp=as.matrix(temp)
           dimnames(temp)[[2]]=NULL
@@ -121,7 +125,7 @@
   if (is.null(krige$x)) 
     krige <- NULL
   spm.info <- list(formula = form, y = resp.val, intercept = TRUE, 
-                   lin = lin, pen = pen, krige = krige, off.set = off.set)
+                   lin = lin, pen = pen, krige = krige, off.set = off.set, contrasts=contrasts)
   datmat <- spm.info$y
   if (!is.null(spm.info$lin)) 
     datmat <- cbind(datmat, spm.info$lin$x)

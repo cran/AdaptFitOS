@@ -3,10 +3,10 @@
 # For fitting adaptive semiparametric regression models.
 
 "asp2" <-   function (form, #adap = FALSE, #random = NULL, group = NULL, family = "gaussian",
-            spar.method = "REML", omit.missing = NULL,returnFit=FALSE, niter = 20, niter.var = 50,tol=1e-6, tol.theta=1e-6,
+            spar.method = "REML", contrasts=NULL, omit.missing = NULL,returnFit=FALSE, niter = 20, niter.var = 50,tol=1e-6, tol.theta=1e-6,
           #  weights = NULL,correlation=NULL,
             control=NULL){
-  require("SemiPar")
+
   epsilon.fit=epsilon.theta=NULL
 
 
@@ -16,7 +16,7 @@
 
 #read the formula
 
-  spm.info <- aspmFormReadOS(form, omit.missing)
+  spm.info <- aspmFormReadOS(form, omit.missing,constrasts=contrasts)
   design.info <- spmDesignOS(spm.info)
 
 #get the design matrices

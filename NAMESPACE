@@ -8,7 +8,6 @@ import(
   SemiPar,
   MASS,
   nlme,
-  cluster,
   mgcv,
   splines
 )

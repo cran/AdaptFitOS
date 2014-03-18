@@ -1,7 +1,5 @@
-
-.onLoad <- function(libname, pkgname) {
-ver<- utils::packageDescription(pkgname, libname, fields=c("Version", "Date"))
-  hello <- paste("This is AdaptFitOS ",ver[1],". Type 'help(\"AdaptFitOS-package\")' for an overview.",sep="")
-  packageStartupMessage(hello)
+.onAttach <- function (lib, pkg) {
+  ver <- read.dcf(file.path(lib,pkg,"DESCRIPTION"),"Version")
+  ver <- as.character(ver)
+  packageStartupMessage("AdaptFitOS",ver,"loaded.\n Type 'help(\"AdaptFitOS-package\")' for an overview.\n", domain = NULL,  appendLF = TRUE)
 }
-

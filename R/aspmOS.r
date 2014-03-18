@@ -9,7 +9,6 @@
   function (spm.info, random = NULL, group = NULL, family = "gaussian", 
             spar.method = "REML", omit.missing = NULL, Si.b = NULL, weights = NULL,correlation=NULL,control=NULL)
 {
-  require("nlme")
   random.info <- NULL
   if (!is.null(random)) 
     random.info <- random.read(random, group)

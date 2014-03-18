@@ -56,7 +56,8 @@ Tatyana Krivobokova \email{tkrivob at gwdg de}
 beta=function(l,m,x) return(gamma(l+m)*(gamma(l)*gamma(m))^(-1)*x^(l-1)*(1-x)^(m-1))
 f1 = function(x) return((0.6*beta(30,17,x)+0.4*beta(3,11,x))*1/0.958)
 f2 = function(z) return((sin(2*pi*(z-0.5))^2)*1/.3535)
-f3 = function(z) return((exp(-400*(z-0.6)^2)+5/3*exp(-500*(z-0.75)^2)+2*exp(-500*(z-0.9)^2))*1/0.549)
+f3 = function(z) return((exp(-400*(z-0.6)^2)+5/3*
+                           exp(-500*(z-0.75)^2)+2*exp(-500*(z-0.9)^2))*1/0.549)
 center=function(x) return(x-mean(x))
 
 set.seed(1)

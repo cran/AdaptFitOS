@@ -6,7 +6,7 @@ An asp formula
 \description{
 A formula to be used in \code{\link{asp2}}. The formula is close to the one used in \code{\link[AdaptFit]{asp}} of package AdaptFit.
 
-Unlike in package SemiPar, dummies for categorical covariates are constructed automatically if variable is given as factor. Note that only parametric interactions are supported and that
+Unlike in package SemiPar, dummies for categorical covariates are constructed automatically if a variable is given as factor (with contrasts as set by \code{options("contasts")} or specified by a list in argument \code{contrasts}). Note that only parametric interactions are supported and that
 interacting covariates have to be multiplied beforehand and given as a new variable in the formula.
 Smooth terms are given by
 

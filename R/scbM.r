@@ -1,7 +1,6 @@
 # Function to calculate the simultaneous confidence bands using the bias correction, resulted from the mixed model represenation of penalized splines.
 scbM=function(object,select=NULL,drv=0,level=0.95,div=1000,calc.stdev=TRUE,bayes=FALSE)
 {
-   require(nlme)
    if (class(object)!="asp") stop("Only asp objects created by asp2() are supported.")
     fit=object
     x= object$info$pen$x #object$x[[2]]

@@ -10,7 +10,8 @@ Based on package \code{AdaptFit} (which is itself based on the \code{SemiPar} pa
 %Based on the function \code{\link[AdaptFit]{asp}} of the AdaptFit package (which is based on \code{\link{spm}} function of \code{SemiPar} package)
 Particular differences to AdaptFit
 include the availability of simultaneous confidence bands and B-spline basis functions and different functionality of the \code{plot} function. However, random effects, autocorrelations and interaction surfaces are not supported.
-Further, only Gaussian responses are supported. Note that in contrast to AdaptFit and SemiPar, estimated curves are centered to have zero mean and unlike SemiPar, categorical covariates are automatically detected.
+Further, only Gaussian responses are supported. Note that in contrast to AdaptFit and SemiPar, estimated curves are centered to have zero mean. Furthermore, unlike in package SemiPar, dummies for categorical covariates are constructed automatically if
+a variable is given as factor. and unlike SemiPar, categorical covariates are automatically detected.
 For computation of the critical value for simultaneous confidence bands based on Hotelling's volume-of-tube formula, some functions of the \code{libtube} library by Catherine Loader (see package \code{\link[locfit]{locfit}}) are used.
 See the references for details on the construction of the confidence bands.
 }

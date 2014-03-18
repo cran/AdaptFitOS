@@ -7,8 +7,7 @@
 spmOS <- function(form,random=NULL,group=NULL,family="gaussian",
                spar.method="REML",omit.missing=NULL,adap=F)
 { 
-   require("nlme")
-
+ 
    # Read in primary information
 
    spm.info <- aspmFormReadOS(form,omit.missing)
@@ -234,7 +233,6 @@ spmOS <- function(form,random=NULL,group=NULL,family="gaussian",
   #                            data=data.fr,method=spar.method)
             if (family!="gaussian")
             {
-               require("MASS")
                lme.fit <- glmmPQL(formtemp,
                random=list(dummy.group.vec.Handan=pdIdent(randomform)),
                            data=data.fr,family=family)
@@ -252,7 +250,6 @@ spmOS <- function(form,random=NULL,group=NULL,family="gaussian",
 
             if (family!="gaussian")
             {
-               require("MASS")
                lme.fit <- glmmPQL(formtemp,
                            random=list(dummy.group.vec.Handan=
                            pdBlocked(Z.block,pdClass=
@@ -282,7 +279,6 @@ spmOS <- function(form,random=NULL,group=NULL,family="gaussian",
 
             if (family!="gaussian")
             {
-               require("MASS")
                stop("implement later; use Poisson simul to test")  
             }
          }
@@ -311,8 +307,7 @@ spmOS <- function(form,random=NULL,group=NULL,family="gaussian",
 
             if (family!="gaussian")
             {
-               require("MASS")
-               lme.fit <- glmmPQL(formtemp,
+                lme.fit <- glmmPQL(formtemp,
                            random=list(dummy.group.vec.Handan=
                            pdBlocked(Z.block,pdClass=
                            rep("pdIdent",length(Z.block)))),

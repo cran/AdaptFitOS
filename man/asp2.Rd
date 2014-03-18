@@ -10,7 +10,7 @@ include the availability of simultaneous confidence bands and B-spline basis fun
 Further, only Gaussian responses are supported. Note that in contrast to AdaptFit and SemiPar, estimated curves are centered to have zero mean.
 }
 \usage{
-asp2(form, spar.method = "REML", omit.missing = NULL, returnFit=FALSE,
+asp2(form, spar.method = "REML", contrasts=NULL, omit.missing = NULL, returnFit=FALSE,
      niter = 20, niter.var = 50, tol=1e-6, tol.theta=1e-6, control=NULL)
 }
 \arguments{
@@ -21,6 +21,7 @@ asp2(form, spar.method = "REML", omit.missing = NULL, returnFit=FALSE,
  \item{spar.method}{method for automatic smoothing parameter
                      selection. May be "REML" (restricted maximum
                      likelihood) or "ML" (maximum likelihood).}
+ \item{contrasts}{an optional list. See the \code{contrasts.arg} of \code{\link{model.matrix.default}}.}
   \item{omit.missing}{a logical value indicating whether
                 fields with missing values are to be
                       omitted.}
@@ -141,7 +142,8 @@ Tatyana Krivobokova \email{tkrivob at gwdg.de}
   beta=function(l,m,x) return(gamma(l+m)*(gamma(l)*gamma(m))^(-1)*x^(l-1)*(1-x)^(m-1))
   f1 = function(x) return((0.6*beta(30,17,x)+0.4*beta(3,11,x))*1/0.958)
   f2 = function(z) return((sin(2*pi*(z-0.5))^2)*1/.3535)
-  f3 = function(z) return((exp(-400*(z-0.6)^2)+5/3*exp(-500*(z-0.75)^2)+2*exp(-500*(z-0.9)^2))*1/0.549)
+  f3 = function(z) return((exp(-400*(z-0.6)^2)+5/3*
+                       exp(-500*(z-0.75)^2)+2*exp(-500*(z-0.9)^2))*1/0.549)
 
   set.seed(1)
   N <- 500

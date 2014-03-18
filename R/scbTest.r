@@ -1,7 +1,6 @@
 `scbTest` <-
 function(object,level=0.95,div=1000,select=NULL,drv=0,calc.stdev=TRUE)
 {
-   require(nlme)
    if (class(object)!="asp") stop("Only asp objects created by asp2() are supported.")
    if (object$info$pen$basis!="os") stop("Only B-spline basis functions supported.")
  #  if (object$info$pen$basis!="os") {stop("Test only supported in case of B-splines.")}
