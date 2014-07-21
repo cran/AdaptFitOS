@@ -136,13 +136,13 @@ X=cbind(X,Xnew)
             trans.mat <- c(trans.mat,list(NULL))
          }
 
-############
-#centering
-colsum= colSums(new.cols)
- new.cols=t(apply(new.cols,1,function(x) x-colsum/n))
-#new.cols=(diag(rep(1,n))-1/n)%*%new.cols
-############
-         Z <- cbind(Z,new.cols)
+          ############
+          #centering
+            colsum= colSums(new.cols)
+            new.cols=t(apply(new.cols,1,function(x) x-colsum/n))
+          #############
+
+          Z <- cbind(Z,new.cols)
         }
         else {
           if (basis.pen!="os") stop("Currently only trunc.poly, tps, os basis functions allowed.")
@@ -160,16 +160,6 @@ colsum= colSums(new.cols)
           smooth=list(m=m,bs.dim=nk,term=spm.info$pen$name[j],p.order=m,knots=knotsx)
           class(smooth)= "ospline.smooth"
 
- ######
-#         m=  spm.info$pen$degree[[j]]
-#          nk=length(knots.pen[[j]])
-#       smooth=list(m=m,bs.dim=nk,knots= knots.pen[[j]],term=spm.info$pen$name[j],p.order=m)
-#        class(smooth)= "ospline.smooth"
-#          xx= as.matrix(x.pen)[,j]
-#        data.xx = data.frame(x = xx)
-#          names(data.xx) <- spm.info$pen$name[j]
-#        smooth= smooth.construct.os.smooth.spec(smooth,data.xx,knots=data.frame(knots.pen[[j]]))
- #####
 
           CZ.temp <- Predict.matrix.lme(smooth,data.xx)
           Z <- cbind(Z,CZ.temp$Z)
@@ -299,8 +289,7 @@ colsum= colSums(new.cols)
 
    if (is.null(spm.info$krige)) sqrt.Omega.krige <- NULL
 
-knots.pen -> spm.info$pen$knots
-   # Return spm() fit object
+  knots.pen -> spm.info$pen$knots
 
    return(list(spm.info=spm.info,X=X,Z=Z,Z.spline=Z.spline,
                trans.mat=trans.mat,block.inds=block.inds,

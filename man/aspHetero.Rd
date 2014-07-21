@@ -3,8 +3,8 @@
 \title{ Estimate varying residual variance  }
 \description{Estimates a varying residual variance on basis of an asp object.}
 \usage{
-aspHetero(object, xx, nknots=5, knots=NULL, basis="os", degree=c(3,2),
-          tol=1e-8, niter=100, niter.var=250)
+aspHetero(object, xx, nknots=5, knots=NULL, basis="os", 
+		 degree=c(3,2), tol=1e-8, niter=100, niter.var=250)
 }
 \arguments{
 \item{object}{an asp object.}
@@ -27,10 +27,10 @@ An object of class asp with varying variances, with additional element \code{sig
 \references{
 Wiesenfarth, M., Krivobokova, T., Klasen, S., Sperlich, S. (2012).\cr
 Direct Simultaneous Inference in Additive Models and its Application to Model Undernutrition.
-\emph{Journal of the American Statistical Association}, accepted.
+\emph{Journal of the American Statistical Association}, 107(500): 1286-1296.
 }
 \author{
-Manuel Wiesenfarth \email{mwiesen at gwdg de}
+Manuel Wiesenfarth \email{m.wiesenfarth at dkfz de}
 }
 
 \examples{
@@ -40,7 +40,8 @@ attach(mcycle)
 y=accel
 kn1 <- default.knots(times,20)
 # fit model with constant residual variance
-  fit=  asp2(accel~f(times,basis="os",degree=3,knots=kn1,adap=FALSE),niter = 20, niter.var = 200)
+  fit= asp2(accel~f(times,basis="os",degree=3,knots=kn1,adap=FALSE),
+  								niter = 20, niter.var = 200)
 
 
 # fit model with varying residual variance

@@ -1,8 +1,9 @@
 ########## R-function: spm ##########
 
-# For fitting semiparametric regression models.
+# For fitting semiparametric regression models. 
 
-# Last changed: 21 NOV 2005 by MPW
+#Function spm of package SemiPar manipulated to support o-splines.
+
 
 spmOS <- function(form,random=NULL,group=NULL,family="gaussian",
                spar.method="REML",omit.missing=NULL,adap=F)

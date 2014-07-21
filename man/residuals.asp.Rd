@@ -1,8 +1,7 @@
 \name{residuals.asp}
 \alias{residuals.asp}
 \title{Residuals for semiparametric regression.}
-\description{Extracts residuals from a semiparametric regression fit object.
-This function is nearly identical to the respective function in package \code{SemiPar}. }
+\description{Extracts residuals from a semiparametric regression fit object.}
 \usage{
 \method{residuals}{asp}(object,...)
 }
@@ -19,19 +18,6 @@ variable and the fitted values.}
 
 \value{The vector of residuals.}
 
-\references{
-     Ruppert, D., Wand, M.P. and Carroll, R.J. (2003)\cr
-     \emph{Semiparametric Regression} Cambridge University Press.\cr
-     \url{http://stat.tamu.edu/~carroll/semiregbook/}
-
-
-     Ganguli, B. and Wand, M.P. (2005)\cr
-     \emph{SemiPar 1.0 Users' Manual}.\cr
-     \url{http://www.uow.edu.au/~mwand/SPmanu.pdf}
-}
-\author{M.P. Wand 
-\email{mwand@uow.edu.au}
-(other contributors listed in SemiPar Users' Manual).}
 
 \seealso{
 \code{\link{plot.asp}}, \code{\link{predict.asp}}, \code{\link{summary.asp}}, \code{\link{fitted.asp}}

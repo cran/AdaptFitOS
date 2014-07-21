@@ -12,7 +12,7 @@ sigma(object)
 %%  ~~ If necessary, more details than the description above ~~
 %}
 \author{
-Manuel Wiesenfarth \email{mwiesen at gwdg de}
+Manuel Wiesenfarth \email{m.wiesenfarth at dkfz de}
 }
 
 \examples{

@@ -1,9 +1,8 @@
 ########## R function: predict.spm ##########
 
 # For obtaining predictions and corresponding
-# standard errors from an spm() fit object.
+# standard errors from an asp2() fit object.
 
-# Last changed: 02 FEB 2005
 
 predict.asp <- function(object,newdata,se=FALSE,...)
 {
@@ -54,12 +53,22 @@ predict.asp <- function(object,newdata,se=FALSE,...)
    
    newdata.lin <- NULL
    if (lin.present)
-      for (curr.name in object$info$lin$name)
-      {
-         col.num <- (1:num.vars)[names(newdata)==curr.name]
-         newdata.lin <- cbind(newdata.lin,newdata[,col.num])
+      for (curr.name in object$info$lin$name.orig) {
+        
+        if (is.factor(newdata[[curr.name]])){
+          temp=model.matrix(as.formula(paste("~",curr.name)),data=newdata,constrasts=object$info$lin$contrasts[[curr.name]])
+          temp=temp[,-1,drop=F]
+          temp=as.matrix(temp)
+          dimnames(temp)[[2]]=NULL
+          newdata.lin <- cbind(newdata.lin,temp) 
+        }
+        else {
+          col.num <- (1:num.vars)[names(newdata)==curr.name]
+          newdata.lin <- cbind(newdata.lin,newdata[,col.num])
+        }
+        
+        
       }
-
    newdata.pen <- NULL
    if (pen.present)
       for (curr.name in object$info$pen$name)
@@ -277,7 +286,7 @@ predict.asp <- function(object,newdata,se=FALSE,...)
        C.newdata <- cbind(C.newdata,new.cols.spline) 
    }
  
-   fit <- as.vector(C.newdata%*%coefs)
+  fit <- as.vector(C.newdata%*%coefs)
    
    if (se==TRUE)
    {

@@ -20,26 +20,9 @@ D<-diag(c(rep(0,ncol(X)),rep(1,K)))
 
 sigma.eps<-data.fit$y.cov[1]
 sigma.u<-data.fit$random.var
-#if (fit.start$info$pen$basis=="tps") beta<-data.fit$coef.mean[1:2]else beta<-data.fit$coef.mean[1:(fit.start$info$pen$degree+1)]
 beta<-data.fit$fit$coef$fixed
 
-#data.fit<-asp2(y~f(xx,basis=basis,degree=degree,knots=kn.e),adap=F)
-#Xe<-data.fit$design.matrices$Xb
-#Ze<-data.fit$design.matrices$Zb
-#Ce<-data.fit$design.matrices$Wb
-#fit.start$sigmax=list(p.order=data.fit$info$pen$degree[1],m=data.fit$info$pen$degree[1],bs.dim=length(data.fit$info$pen$knots[[1]]),knots= data.fit$info$pen$knots[[1]],term=data.fit$info$pen$name)
 
-#m= degree
-#k=length(kn.e)
-#smooth=list(m=m,bs.dim=k,knots= kn.e,term="xx",p.order=m)
-#class(smooth)= "ospline.smooth"
-#data.xx = data.frame(xx = xx)
-#smooth= smooth.construct.os.smooth.spec(smooth,data.xx,knots=data.frame(kn.e))
-#CZ <- Predict.matrix.lme(smooth,data.xx,drv=0,center=T)
-#Xe= CZ$C        #OHNE intercept!!!!!
-#Ze= CZ$Z
-
-#nk=length(kn.e)
 nk=nknots
 if (basis=="os"){
   knotsx= seq(min(xx),max(xx),length=nk+2)[-c(1,nk+2)]
@@ -55,10 +38,10 @@ names(kn.e) <- NULL
 }
 data.xx = data.frame(xx = xx)
 CZ.temp <- Predict.matrix.lme(smooth,data.xx,center=T)
-if (basis=="os") Xe <- CZ.temp$C            #OHNE intercept!!!!!
+if (basis=="os") Xe <- CZ.temp$C          
 else Xe <- CZ.temp$C[,-1,drop=F]
 Ze <- CZ.temp$Z
-#Xe=cbind(rep(1,nrow(Ze)),Xe)
+
 Ce=cbind(Xe,Ze)
 
 
@@ -120,15 +103,11 @@ for(j in 1:niter){
     if (m == niter) stop("Iteration limit reached without convergence")
 }
 
-#    data.fit<-lme(y1~X1-1,random=list(all=pdIdent(~Z1-1)))
-#  fit1<- (exp(c(Ce%*%omega)/2))*fitted(data.fit)
 fit.start$fitted=fit
 fit.start$coef.mean=c(beta,uhat)
 fit.start$fit$sigma         =  sqrt( sigma.eps)
 
 fit.start$sigmax$fitted=sqrt(Sigma.eps)
 fit.start$sigmax$coef=omega
-#fit.start$fitted2=fit1
-#return(list(fit.start=fit.save,fit.hetero=fit.start))
 return(fit.start)
 }

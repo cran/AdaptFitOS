@@ -101,7 +101,6 @@ function(object,data,...)
       for (i in 1:(nk+p-q+1)){
         for (j in i:(min(i+p-q,nk+p-q+1))){
           R <- function(x){
-      #?  p-q+1
             Nq <- spline.des(allKnots,x,p-q+1,derivs=0*x,outer.ok=T)$design
             Nq[,i]*Nq[,j]
           }
@@ -181,8 +180,6 @@ Predict.matrix.lme <-function(object,data,drv=0,center=T,...)
       DI=tcrossprod(D)  #DI=D%*%t(D)
 
     # centering
-     # if (!is.null(data1)) X=t(apply(X,1,function(x) x-colSums( Predict.matrix.ospline.smooth(object, data1,drv=drv))/n))
-     # else
       if (center) X=t(apply(X,1,function(x) x-colSums(X)/n))
 
     Z=X%*%t(D)%*%solve(DI)
@@ -342,8 +339,7 @@ drvbasis<-function(x,degree,knots,drv=0,basis){
     }
   }
 
-  X <-cbind(X,Z)#
-#X=t(apply(X,1,function(z) z-colSums(X)/length(x))) #      C=(diag(rep(1,n))-1/n)%*%C
+  X <-cbind(X,Z)
   X
 }
 

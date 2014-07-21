@@ -6,7 +6,8 @@ Calculates simultaneous (uniform) confidence bands for the mixed model represent
 splines based on volume-of-tube formula.
 }
 \usage{
-scbM(object,select=NULL,drv=0,level=0.95,div=1000,calc.stdev=TRUE,bayes=FALSE)
+scbM(object,select=NULL,drv=0,level=0.95,div=1000,
+			calc.stdev=TRUE,bayes=FALSE)
 }
 \arguments{
   \item{object}{an asp object.}
@@ -44,20 +45,22 @@ Simultaneous confidence bands for penalized spline estimators.
 
 Wiesenfarth, M., Krivobokova, T., Klasen, S., Sperlich, S. (2012).\cr
 Direct Simultaneous Inference in Additive Models and its Application to Model Undernutrition.
-\emph{Journal of the American Statistical Association}, accepted.
+\emph{Journal of the American Statistical Association}, 107(500): 1286-1296.
 }
 \author{
-Manuel Wiesenfarth \email{mwiesen at gwdg de},
+Manuel Wiesenfarth \email{m.wiesenfarth at dkfz de},
 Tatyana Krivobokova \email{tkrivob at gwdg de}
 }
 
 \examples{
 \dontrun{
-beta=function(l,m,x) return(gamma(l+m)*(gamma(l)*gamma(m))^(-1)*x^(l-1)*(1-x)^(m-1))
+beta=function(l,m,x) 
+		return(gamma(l+m)*(gamma(l)*gamma(m))^(-1)*x^(l-1)*(1-x)^(m-1))
 f1 = function(x) return((0.6*beta(30,17,x)+0.4*beta(3,11,x))*1/0.958)
 f2 = function(z) return((sin(2*pi*(z-0.5))^2)*1/.3535)
-f3 = function(z) return((exp(-400*(z-0.6)^2)+5/3*
-                           exp(-500*(z-0.75)^2)+2*exp(-500*(z-0.9)^2))*1/0.549)
+f3 = function(z) 
+		return((exp(-400*(z-0.6)^2)+
+				5/3*exp(-500*(z-0.75)^2)+2*exp(-500*(z-0.9)^2))*1/0.549)
 center=function(x) return(x-mean(x))
 
 set.seed(1)
@@ -82,9 +85,9 @@ y <- f1(x1)+f2(x2)+f3(x3)+0.3*rnorm(N)
                 niter = 20, niter.var = 200)
 
   # compute 95% simultaneous confidence bands.
-  # You could skip this and use "fit2b" indstead of "scb2b" later on, however,
-  # if N is large, computing the SCBs various times can take some time
-  # if you don't need fitted values and bounds for all covariate points
+  # You could skip this and use "fit2b" indstead of "scb2b" later on, 
+  # however, if N is large, computing the SCBs various times can take 
+  # some time if you don't need fitted values and bounds for all covariate points
   # (can be computationally intensive due to large matrix dimensions),
   # set calc.stdev=F such that these are not computed.
     scb2b<- scbM(fit2b,calc.stdev=FALSE)
@@ -96,7 +99,8 @@ y <- f1(x1)+f2(x2)+f3(x3)+0.3*rnorm(N)
     #the following would give the same result
     #plot(fit2b,select=1,drv=1)
     #different style
-    plot(scb2bdrv,select=1,scb.lty="blank", shade=TRUE,shade.col="steelblue")
+    plot(scb2bdrv,select=1,scb.lty="blank", shade=TRUE,
+    									shade.col="steelblue")
 }
 }
 \keyword{smooth}

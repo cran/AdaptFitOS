@@ -3,7 +3,7 @@ scbM=function(object,select=NULL,drv=0,level=0.95,div=1000,calc.stdev=TRUE,bayes
 {
    if (class(object)!="asp") stop("Only asp objects created by asp2() are supported.")
     fit=object
-    x= object$info$pen$x #object$x[[2]]
+    x= object$info$pen$x 
     y=object$info$y
     n <- length(y)
 
@@ -17,7 +17,7 @@ scbM=function(object,select=NULL,drv=0,level=0.95,div=1000,calc.stdev=TRUE,bayes
 
     for (j in 1:length(object$info$pen$degree)){
       if (object$info$pen$basis=="os"){
-        m=  object$info$pen$degree[[j]]#rep((object$info$pen$degree[j]),2)
+        m=  object$info$pen$degree[[j]]
         k=length(object$knots[[1]][[j]])
         smooth=list(m=m,bs.dim=k,knots= object$knots[[1]][[j]],term=object$info$pen$name[j],p.order=m)
         class(smooth)= "ospline.smooth"
@@ -36,8 +36,7 @@ scbM=function(object,select=NULL,drv=0,level=0.95,div=1000,calc.stdev=TRUE,bayes
 
     crit=Stdev.fit= ucb=lcb=fitted= k0=cov.coef=WjXj=list()
     for (j in nsmooth){
-      #summieren der m[1] aus allen smooths, verwendung dieser für df? oder nur m aus betreffendem smooth?
-        m=sum(sapply(fit.mat$smooth, FUN=function(x) return(x$m[1])))
+      m=sum(sapply(fit.mat$smooth, FUN=function(x) return(x$m[1])))
       df <- n-m-1
 
      ##################
@@ -67,20 +66,20 @@ scbM=function(object,select=NULL,drv=0,level=0.95,div=1000,calc.stdev=TRUE,bayes
         Zj= CZj$Z
         Xj=cbind(Cj,Zj)
 
-        Cnj=cbind(matrix(rep(1,n)),object$info$lin[[2]],Cnj)
+        Cnj=cbind(matrix(rep(1,n)),object$info$lin$x,Cnj)
         Xnj=cbind(Cnj,Znj)
 
         Lambdaj  =  diag(c(rep(0,ncol(Cj)),Pen[(firstZ:lastZ)]))
 
         if (!hetero){
-          if (ncol(object$x[[2]])>1|!is.null(object$info$lin[[2]])) {
+          if (ncol(object$x[[2]])>1|!is.null(object$info$lin$x)) {
             SnjXj=Xnj%*%( tcrossprod(solve(crossprod(Xnj)+diag(c(rep(0,ncol(Cnj)),Pen[-((firstZ:lastZ))]))),Xnj)%*%Xj)
             WjXj[[j]]=Xj-SnjXj
           }
           else  WjXj[[j]]= Xj
         }
         else {
-          if (ncol(object$x[[2]])>1|!is.null(object$info$lin[[2]])) SnjXj=Xnj%*%( tcrossprod(solve(crossprod(Xnj,((object$sigmax$fitted^2)^(-1)*Xnj))+diag(c(rep(0,ncol(Cnj)),Pen[-((firstZ:lastZ))]))),((object$sigmax$fitted^2)^(-1)*Xnj))%*%Xj)
+          if (ncol(object$x[[2]])>1|!is.null(object$info$lin$x)) SnjXj=Xnj%*%( tcrossprod(solve(crossprod(Xnj,((object$sigmax$fitted^2)^(-1)*Xnj))+diag(c(rep(0,ncol(Cnj)),Pen[-((firstZ:lastZ))]))),((object$sigmax$fitted^2)^(-1)*Xnj))%*%Xj)
           else   SnjXj=Xnj%*%( tcrossprod(solve(crossprod(Xnj,((object$sigmax$fitted^2)^(-1)*Xnj))),((object$sigmax$fitted^2)^(-1)*Xnj))%*%Xj)
           WjXj[[j]]= (object$sigmax$fitted^(-2))*(Xj-SnjXj )
         }
@@ -116,8 +115,6 @@ scbM=function(object,select=NULL,drv=0,level=0.95,div=1000,calc.stdev=TRUE,bayes
 
 
       sx=seq(min(x[,j]),max(x[,j]),length=div)
-      #sx1=sx[-1]
-      #sx2=sx[-div]
       k0[[j]]=sum(sqrt(apply((integ(sx,div)-integ(sx,1))^2,2,sum)))
 
       # finding the critical value

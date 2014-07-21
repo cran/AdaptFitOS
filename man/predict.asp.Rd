@@ -30,7 +30,7 @@ standard error estimates are also obtained.}
        returned. The `fit' component contains the predictions. 
        The `se' component contains standard error estimates.}
 
-\author{Manuel Wiesenfarth, based on implementation of M.P. Wand
+\author{Manuel Wiesenfarth, based on implementation of M.P. Wand (package \code{SemiPar}).
 }
 
 \seealso{
@@ -47,7 +47,8 @@ newdata.age <- data.frame(age=c(90,100,110,120,130))
 preds <-  predict(fit,newdata=newdata.age,se=TRUE)
 print(preds)
 
-# Use predict to avoid centering of smooths in case of scatterplot smoothing
+# Use predict to avoid centering of smooths in case of scatterplot 
+# smoothing
   fit <- asp2(strontium.ratio~f(age,basis="tps"))
   newdata.age <-data.frame(age=seq(90,130,length.out=50) )
   preds <- predict(fit,newdata=newdata.age,se=TRUE)

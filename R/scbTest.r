@@ -3,7 +3,6 @@ function(object,level=0.95,div=1000,select=NULL,drv=0,calc.stdev=TRUE)
 {
    if (class(object)!="asp") stop("Only asp objects created by asp2() are supported.")
    if (object$info$pen$basis!="os") stop("Only B-spline basis functions supported.")
- #  if (object$info$pen$basis!="os") {stop("Test only supported in case of B-splines.")}
     fit=object
     x= object$info$pen$x #object$x[[2]]
     y=object$info$y
@@ -30,7 +29,6 @@ function(object,level=0.95,div=1000,select=NULL,drv=0,calc.stdev=TRUE)
 
     crit=Stdev.fit= ucb=lcb=fitted= k0=cov.coef=WjXj=tstat=pval=list()
     for (j in nsmooth){
-      #summieren der m[1] aus allen smooths, verwendung dieser für df? oder nur m aus betreffendem smooth?
         m=sum(sapply(fit.mat$smooth, FUN=function(x) return(x$m[1])))
       df <- n-m-1
 
@@ -58,13 +56,13 @@ function(object,level=0.95,div=1000,select=NULL,drv=0,calc.stdev=TRUE)
         Cj= CZj$C[,drop=F]
         if (fit.mat$smooth[[j]]$m[1]==1) Cj=matrix(0,n,0)
         Zj= CZj$Z
-        Cnj=cbind(matrix(rep(1,nrow(Cj))),object$info$lin[[2]],Cj,Cnj)
+        Cnj=cbind(matrix(rep(1,nrow(Cj))),object$info$lin$x,Cj,Cnj)
         Xnj=cbind(Cnj,Znj)
 
         Lambdaj  =  diag(c(Pen[(firstZ:lastZ)]))
 
         if (!hetero){
-          if (ncol(object$x[[2]])>1|!is.null(object$info$lin[[2]])) {
+          if (ncol(object$x[[2]])>1|!is.null(object$info$lin$x)) {
             SnjXj=Xnj%*%( tcrossprod(solve(crossprod(Xnj)+diag(c(rep(0,ncol(Cnj)),Pen[-((firstZ:lastZ))]))),Xnj)%*%Zj)
             WjXj[[j]]=Zj-SnjXj
           }
@@ -74,7 +72,7 @@ function(object,level=0.95,div=1000,select=NULL,drv=0,calc.stdev=TRUE)
           }
         }
         else {
-          if (ncol(object$x[[2]])>1|!is.null(object$info$lin[[2]])) SnjXj=Xnj%*%( tcrossprod(solve(crossprod(Xnj,((object$sigmax$fitted^2)^(-1)*Xnj))+diag(c(rep(0,ncol(Cnj)),Pen[-((firstZ:lastZ))]))),((object$sigmax$fitted^2)^(-1)*Xnj))%*%Zj)
+          if (ncol(object$x[[2]])>1|!is.null(object$info$lin$x)) SnjXj=Xnj%*%( tcrossprod(solve(crossprod(Xnj,((object$sigmax$fitted^2)^(-1)*Xnj))+diag(c(rep(0,ncol(Cnj)),Pen[-((firstZ:lastZ))]))),((object$sigmax$fitted^2)^(-1)*Xnj))%*%Zj)
           else   SnjXj=Xnj%*%( tcrossprod(solve(crossprod(Xnj,((object$sigmax$fitted^2)^(-1)*Xnj))),((object$sigmax$fitted^2)^(-1)*Xnj))%*%Zj)
           WjXj[[j]]= (object$sigmax$fitted^(-2))*(Zj-SnjXj )
         }
@@ -88,17 +86,12 @@ function(object,level=0.95,div=1000,select=NULL,drv=0,calc.stdev=TRUE)
           names(data.grid) <- names(fit.mat$model)[1+j]
           if (drv==0) {
             CZj.grid <- Predict.matrix.lme(fit.mat$smooth[[j]],data.grid)
-            #if (class(fit.mat$smooth[[j]])=="ospline.smooth") Cj.grid= CZj.grid$C[-diffe,,drop=F]  else Cj.grid= CZj.grid$C[-diffe,-1,drop=F]
             Zj.grid= CZj.grid$Z[-diffe,]
-           # Xj.grid=  cbind(Cj.grid,Zj.grid)
           }
           else {
-#stop("currently not implemented")
               CZj.grid <- Predict.matrix.lme(fit.mat$smooth[[j]],data.grid,drv=drv,center=F)
-              #Cj.grid= CZj.grid$C[-diffe,,drop=F]
               Zj.grid= CZj.grid$Z[-diffe,]
-             # Xj.grid=  cbind(Cj.grid,Zj.grid)
-          }
+           }
           SX <-  tcrossprod(cov.coef12,(Zj.grid))
           SX.norm = sqrt(apply(SX^2, 2, sum))
           SX/SX.norm
@@ -107,8 +100,6 @@ function(object,level=0.95,div=1000,select=NULL,drv=0,calc.stdev=TRUE)
 
 
       sx=seq(min(x[,j]),max(x[,j]),length=div)
-      #sx1=sx[-1]
-      #sx2=sx[-div]
       k0[[j]]=sum(sqrt(apply((integ(sx,div)-integ(sx,1))^2,2,sum)))
 
       # finding the critical value

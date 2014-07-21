@@ -10,8 +10,10 @@ include the availability of simultaneous confidence bands and B-spline basis fun
 Further, only Gaussian responses are supported. Note that in contrast to AdaptFit and SemiPar, estimated curves are centered to have zero mean.
 }
 \usage{
-asp2(form, spar.method = "REML", contrasts=NULL, omit.missing = NULL, returnFit=FALSE,
-     niter = 20, niter.var = 50, tol=1e-6, tol.theta=1e-6, control=NULL)
+asp2(form, spar.method = "REML", contrasts=NULL, 
+     omit.missing = NULL, returnFit=FALSE, 
+     niter = 20, niter.var = 50, tol=1e-6, tol.theta=1e-6, 
+     control=NULL)
 }
 \arguments{
   \item{form}{a formula describing the model to be fitted. See \code{\link{aspFormula}} for further information.
@@ -69,10 +71,10 @@ Ruppert, D., Wand, M.P. and Carroll, R.J. (2003)\cr
 
 Wiesenfarth, M., Krivobokova, T., Klasen, S., Sperlich, S. (2012).\cr
 Direct Simultaneous Inference in Additive Models and its Application to Model Undernutrition.
-\emph{Journal of the American Statistical Association}, accepted.
+\emph{Journal of the American Statistical Association}, 107(500): 1286-1296.
 }
 \author{
-Manuel Wiesenfarth \email{mwiesen at gwdg de},
+Manuel Wiesenfarth \email{m.wiesenfarth at dkfz de},
 Tatyana Krivobokova \email{tkrivob at gwdg.de}
 }
 \seealso{
@@ -86,13 +88,15 @@ Tatyana Krivobokova \email{tkrivob at gwdg.de}
 # Examples as in package AdaptFit
   ## scatterplot smoothing
     x <- 1:1000/1000
-    mu <- exp(-400*(x-0.6)^2)+5*exp(-500*(x-0.75)^2)/3+2*exp(-500*(x-0.9)^2)
+    mu <- exp(-400*(x-0.6)^2)+
+    			5*exp(-500*(x-0.75)^2)/3+2*exp(-500*(x-0.9)^2)
     y <- mu+0.5*rnorm(1000)
 
   #fit with default knots
     y.fit <- asp2(y~f(x,adap=TRUE))
     plot(y.fit,residuals=TRUE,lwd=2,scb.lwd=2,scb.lty="dashed")
-    # with shaded confidence region. Use scb.lty="blank" to plot the shades only.
+    # with shaded confidence region. 
+    # Use scb.lty="blank" to plot the shades only.
       plot(y.fit,residuals=TRUE,shade=TRUE,scb.lty="blank")
 
   ## one more scatterplot smoothing with specified knots and subknots
@@ -114,7 +118,8 @@ Tatyana Krivobokova \email{tkrivob at gwdg.de}
   ## additive models
     x1 <- 1:300/300
     x2 <- runif(300)
-    mu1 <- exp(-400*(x1-0.6)^2)+5*exp(-500*(x1-0.75)^2)/3+2*exp(-500*(x1-0.9)^2)
+    mu1 <- exp(-400*(x1-0.6)^2)+
+    			 5*exp(-500*(x1-0.75)^2)/3+2*exp(-500*(x1-0.9)^2)
     mu2 <- sin(2*pi*x2)
     y2 <- mu1+mu2+0.3*rnorm(300)
 
@@ -126,7 +131,8 @@ Tatyana Krivobokova \email{tkrivob at gwdg.de}
     plot(y21.fit)
     par(op)
 
-# Use predict to avoid centering of smooths in case of scatterplot smoothing
+# Use predict to avoid centering of smooths in case of scatterplot 
+# smoothing
   library(SemiPar)
   data(fossil)
   attach(fossil)
@@ -139,11 +145,13 @@ Tatyana Krivobokova \email{tkrivob at gwdg.de}
 
 ##################
 #more examples
-  beta=function(l,m,x) return(gamma(l+m)*(gamma(l)*gamma(m))^(-1)*x^(l-1)*(1-x)^(m-1))
+  beta=function(l,m,x) 
+  		return(gamma(l+m)*(gamma(l)*gamma(m))^(-1)*x^(l-1)*(1-x)^(m-1))
   f1 = function(x) return((0.6*beta(30,17,x)+0.4*beta(3,11,x))*1/0.958)
   f2 = function(z) return((sin(2*pi*(z-0.5))^2)*1/.3535)
-  f3 = function(z) return((exp(-400*(z-0.6)^2)+5/3*
-                       exp(-500*(z-0.75)^2)+2*exp(-500*(z-0.9)^2))*1/0.549)
+  f3 = function(z) 
+  		return((exp(-400*(z-0.6)^2)+
+  				5/3*exp(-500*(z-0.75)^2)+2*exp(-500*(z-0.9)^2))*1/0.549)
 
   set.seed(1)
   N <- 500
@@ -161,7 +169,8 @@ Tatyana Krivobokova \email{tkrivob at gwdg.de}
 
   # semiparametric model
     fit1=  asp2(y~x1+f(x2,basis="os",degree=3,knots=kn2,adap=FALSE)
-                    +f(x3,basis="os",degree=3,knots=kn3,var.knots=kn.var3,adap=FALSE),
+                    +f(x3,basis="os",degree=3,
+                    	   knots=kn3,var.knots=kn.var3,adap=FALSE),
                     niter = 20, niter.var = 200)
     summary(fit1)
     plot(fit1,pages=1)
@@ -183,7 +192,8 @@ Tatyana Krivobokova \email{tkrivob at gwdg.de}
                  niter = 20, niter.var = 200)
 
   # plot smoothing parameter function for covariate x3.
-  # Note that in the case of B-splines additional knots are added, see references.
+  # Note that in the case of B-splines additional knots are added, 
+  # see references.
     plot(seq(0,1,length.out=42), fit2b$y.cov/fit2b$random.var[85:126],
                 ylab=expression(lambda(x3)),xlab="x3",type="l",lwd=3)
 
@@ -216,7 +226,8 @@ Tatyana Krivobokova \email{tkrivob at gwdg.de}
     #the following would give the same result
     #x11();plot(fit2b,select=1,drv=1)
   # different style
-    plot(scb2bdrv,select=1,scb.lty="blank", shade=TRUE,shade.col="steelblue")
+    plot(scb2bdrv,select=1,scb.lty="blank", 
+    				shade=TRUE,shade.col="steelblue")
 }
 }
 \keyword{nonlinear} \keyword{models} \keyword{smooth} \keyword{regression}\keyword{adaptive}

@@ -1,4 +1,4 @@
-########## R-function: asp ##########
+########## R-function: asp2 ##########
 
 # For fitting adaptive semiparametric regression models.
 

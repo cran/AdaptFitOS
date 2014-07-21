@@ -1,6 +1,6 @@
-########## R-function: summary.spm ##########
+########## R-function: summary.asp ##########
 
-# For summarising results of spm().
+# For summarising results of asp2(). Based on summary.spm() of package SemiPar
 
 
 summary.asp <- function(object,test1=FALSE,test2=FALSE,signif=0.05,...)
@@ -28,7 +28,7 @@ summary.asp <- function(object,test1=FALSE,test2=FALSE,signif=0.05,...)
       }
     }
     if (test2){
-      if (object$info$pen$basis!="os") {warning("Test only supported in case of B-splines."); test2=F}
+      if (object$info$pen$basis!="os") {warning("Specification test (test2) only supported if B-splines were used for fitting the model."); test2=F}
       else testobj2=scbTest(object,level=1-signif)
     }
   }
@@ -161,7 +161,7 @@ summary.asp <- function(object,test1=FALSE,test2=FALSE,signif=0.05,...)
    lin.table=NULL
    if (lin.present)
    {
-      num.obs <- length(object$info$lin$x)
+      num.obs <- nrow(object$info$lin$x)
 
       fixed.coefs <- object$fit$coef$fixed
 

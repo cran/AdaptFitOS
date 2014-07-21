@@ -25,20 +25,20 @@ Depends: \tab SemiPar, MASS, nlme, cluster\cr
 
 Index:
 \preformatted{
-asp2                    Fit a semiparametric regression model with
-                        spatially adaptive penalized
-aspFormula              An asp formula
-aspHetero               Estimate varying residual variance
-fitted.asp              Fitted values for semiparametric regression.
-plot.asp                Plots fitted curves or their derivatives
-                        including simultaneous confidence bands
-plot.scbm               Plots fitted curves in a scbm object
-                        including simultaneous confidence bands
-predict.asp             Semiparametric regression prediction.
-residuals.asp           Residuals for semiparametric regression.
-scbM                    Calculate simultaneous confidence bands for
-                        penalized splines
-summary.asp             Semiparametric regression summary
+asp2             Fit a semiparametric regression model with
+                 spatially adaptive penalized
+aspFormula       An asp formula
+aspHetero        Estimate varying residual variance
+fitted.asp       Fitted values for semiparametric regression.
+plot.asp         Plots fitted curves or their derivatives
+                 including simultaneous confidence bands
+plot.scbm        Plots fitted curves in a scbm object
+                 including simultaneous confidence bands
+predict.asp      Semiparametric regression prediction.
+residuals.asp    Residuals for semiparametric regression.
+scbM             Calculate simultaneous confidence bands for
+                 penalized splines
+summary.asp      Semiparametric regression summary
 }
 The function \code{asp2()} is used to fit the model. Using the resulting \code{asp} object, fitted curves or their derivatives can be plotted with \code{\link{plot.asp}} and information on the parametric effects can be printed using \code{\link{summary}}.
 
@@ -46,7 +46,7 @@ The function \code{asp2()} is used to fit the model. Using the resulting \code{a
 \author{
 Manuel Wiesenfarth and Tatyana Krivobokova
 
-Maintainer: Manuel Wiesenfarth <mwiesen at gwdg.de>
+Maintainer: Manuel Wiesenfarth <m.wiesenfarth at dkfz de>
 }
 \references{
 
@@ -64,7 +64,7 @@ Simultaneous confidence bands for penalized spline estimators.
 
 Wiesenfarth, M., Krivobokova, T., Klasen, S., Sperlich, S. (2012).\cr
 Direct Simultaneous Inference in Additive Models and its Application to Model Undernutrition.
-\emph{Journal of the American Statistical Association}, accepted.
+\emph{Journal of the American Statistical Association}, 107(500): 1286-1296.
 }
 
 

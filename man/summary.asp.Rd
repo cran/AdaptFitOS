@@ -10,7 +10,7 @@
   
 \item{object}{a fitted \code{asp} object as produced by \code{asp2()}.}
 \item{test1}{\code{TRUE} in order to include a test for significance of a nonparametrically estimated effect. The test correpsonds to checking whether the zero line is entirely inside the simultaneous confidence band.}
-\item{test2}{\code{TRUE} in order to inlcude the nonparametric specification test proposed in Wiesenfarth et al. (2011). Only works with B-splines. The function under the null hypothesis is a polynomial of degree q-1 where q is the penalty order.}
+\item{test2}{\code{TRUE} in order to inlcude the nonparametric specification test proposed in Wiesenfarth et al. (2012). Only works with B-splines. The function under the null hypothesis is a polynomial of degree q-1 where q is the penalty order.}
 \item{signif}{the significance level.}
 
 \item{...}{other arguments.}
@@ -35,11 +35,8 @@ Ganguli, B. and Wand, M.P. (2005)\cr
 
 Wiesenfarth, M., Krivobokova, T., Klasen, S., Sperlich, S. (2012).\cr
 Direct Simultaneous Inference in Additive Models and its Application to Model Undernutrition.
-\emph{Journal of the American Statistical Association}, accepted.
+\emph{Journal of the American Statistical Association}, 107(500): 1286-1296.
 }
-\author{M.P. Wand 
-\email{mwand@uow.edu.au}
-(other contributors listed in SemiPar Users' Manual).}
 
 \seealso{
 \code{\link{plot.asp}}, \code{\link{predict.asp}}

@@ -2,7 +2,6 @@
 
 # For searching for an argument assignment
 
-# Last changed: 16 NOV 2004
 
 arg.searchOS <- function(string,arg.name)
 {

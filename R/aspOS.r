@@ -1,4 +1,6 @@
-########## R-function: asp ##########
+########## R-function: aspOS ##########
+
+#AdaptFit::asp() modified to support o-splines
 
 # For fitting adaptive semiparametric regression models.
 

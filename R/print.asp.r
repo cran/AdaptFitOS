@@ -1,8 +1,5 @@
 ########## R-function: print.spm ##########
 
-# For printing the essence of an results of spm()
-
-# Last changed: 21 JAN 2005 by MPW
 
 print.asp <- function(x,...)
 {
@@ -12,14 +9,8 @@ print.asp <- function(x,...)
 
    cat("     ",names(object),"\n\n")
 
-   cat(" The names() function can be used to obtain names \n")
-   cat(" of components and sub-components.\n\n")
-
-   cat(" The summary() function can be used to summarise\n")
-   cat(" the fit aspects of the object.\n\n")
+  summary(x)
 }
-
-######### End of print.spm ##########
 
 
 

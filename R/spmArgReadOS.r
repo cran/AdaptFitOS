@@ -3,7 +3,6 @@
 # For extracting the components of an argument
 # assignment.
 
-# Last changed: 18 JAN 2005
 
 spmArgReadOS <- function(arg.assignment)
 {

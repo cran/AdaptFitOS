@@ -19,7 +19,8 @@
   pen <- list()
   krige <- list()
   off.set <- NULL
-  lin$names <- NULL
+  lin$name <- NULL
+  lin$name.orig <- NULL
   lin$x <- NULL
   pen$name <- NULL
   pen$x <- NULL
@@ -56,11 +57,13 @@
           names(lin$contrasts)[[length( lin$contrasts)]]=term
           temp=temp[,-1,drop=F]
           lin$name <- c(lin$name, dimnames(temp)[[2]])
+          lin$name.orig <- c(lin$name.orig, term)
           temp=as.matrix(temp)
           dimnames(temp)[[2]]=NULL
         }
         else {
           lin$name <- c(lin$name, term)
+          lin$name.orig <- c(lin$name.orig, term)
           temp=as.matrix(as.data.frame(eval(parse(text = term))))
           dimnames(temp)[[2]] =NULL
         }

@@ -5,7 +5,7 @@
 # mixed models, modified compared to lmeAux to take into account 
 # correlated residuals
 
-# Last changed: 16 JUN 2006
+
 
 
 "almeAux" <-

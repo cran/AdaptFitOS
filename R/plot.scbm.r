@@ -21,8 +21,7 @@ plot.scbm=function(x, select=NULL, bands=TRUE,
 
     plotresiduals=residuals
     if (drv>0&residuals==T) plotresiduals=F
-    #if (plot) if(all(par()$mfrow==c(1,1))){if (is.null(mfrow)) par(mfrow=c(1,length(nsmooth))) else par(mfrow=mfrow)}
-
+  
     #layout as in package mgcv by Simon Wood via pages
       # sort out number of pages and plots per page
       if (pages>length(nsmooth)) pages=length(nsmooth)

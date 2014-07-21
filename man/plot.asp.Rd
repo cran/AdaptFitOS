@@ -5,18 +5,11 @@
 \description{
 Plots fitted curves or their derivatives together with simultaneous confidence bands.}
 \usage{
-\method{plot}{asp}(x, select=NULL, drv=0, bands=TRUE, level=0.95,
-     grid=50, pages=0, plot=TRUE, ylim=NULL, xlab=NULL, ylab=NULL,
-     scb.lwd=1, scb.lty="dotted", shade=FALSE, shade.col=grey(0.85),
-     residuals=FALSE, residuals.col="steelblue", bayes=FALSE, rug=TRUE,...)
-%plot.asp(object, select=NULL, drv=0, bands=TRUE, level=0.95,
-%         grid=50, pages=0, plot=TRUE, ylim=NULL, xlab=NULL, ylab=NULL,
-%         scb.lwd=1, scb.lty="dotted", shade=FALSE, shade.col=grey(0.85),
-%         residuals=FALSE, residuals.col="steelblue", bayes=FALSE, rug=TRUE,...)
-%plot.scbm(object, select=NULL, bands=TRUE,
-%         grid=50, pages=0, plot=TRUE, ylim=NULL, xlab=NULL, ylab=NULL,
-%         scb.lwd=1, scb.lty="dotted", shade=FALSE, shade.col=grey(0.85),
-%         residuals=FALSE, residuals.col="steelblue", bayes=FALSE, rug=TRUE,...)
+\method{plot}{asp}(x, select=NULL, drv=0, bands=TRUE, level=0.95, grid=50, pages=0, 
+				plot=TRUE, ylim=NULL, xlab=NULL, ylab=NULL,
+     			scb.lwd=1, scb.lty="dotted", shade=FALSE, shade.col=grey(0.85),
+     			residuals=FALSE, residuals.col="steelblue", 
+     			bayes=FALSE, rug=TRUE,...)
 }
 \arguments{
   \item{x}{an \code{asp} object}
@@ -73,12 +66,12 @@ Simultaneous confidence bands for penalized spline estimators.
 
 Wiesenfarth, M., Krivobokova, T., Klasen, S., Sperlich, S. (2012).\cr
 Direct Simultaneous Inference in Additive Models and its Application to Model Undernutrition.
-\emph{Journal of the American Statistical Association}, accepted.
+\emph{Journal of the American Statistical Association}, 107(500): 1286-1296.
 
 }
 
 \author{
-Manuel Wiesenfarth \email{mwiesen at gwdg de}
+Manuel Wiesenfarth \email{m.wiesenfarth at dkfz de}
 }
 
 \seealso{

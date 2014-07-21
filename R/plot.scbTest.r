@@ -62,9 +62,7 @@ function(x,bands=TRUE,grid=50, plot=TRUE,mfrow=NULL,select=NULL,ylim=NULL,xlab=N
         if (is.null(ylab[[j]])) ylab[[j]]=paste("s", paste(rep("\'",drv),collapse="","",sep=""),"(",names(fit.mat$model)[j+1],")",sep="")
         if (is.null(xlab[[j]])) xlab[[j]]=names(fit.mat$model)[j+1]
         plot(grid.x[[j]],fit[[j]],type="l",ylim= ylim[[j]],xlab=xlab[[j]],ylab=ylab[[j]],...)#
-  #      lines(grid.x[[j]],Cj.grid*x$aspobject$coef.mean[1+j],col="red")
-  #      lines(grid.x[[j]],fit[[j]]+Cj.grid%*%x$aspobject$coef.mean[1+j],col="blue")
-        if (shade){
+         if (shade){
            polygon(c(grid.x[[j]], rev(grid.x[[j]])), c(lcb[[j]], rev(ucb[[j]])), col = shade.col, border = NA)
            lines(grid.x[[j]],fit[[j]],...)
         }
