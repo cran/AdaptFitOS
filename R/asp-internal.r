@@ -1,5 +1,5 @@
-Predict.matrix <- mgcv::Predict.matrix
-formals(Predict.matrix) <- c(formals(Predict.matrix), alist(... = ))
+#Predict.matrix <- mgcv::Predict.matrix
+#formals(Predict.matrix) <- c(formals(Predict.matrix), alist(... = ))
 
 #### Define penalized splines with truncated lines
 #### m is order of the spline, m-1 is the degree 
@@ -61,7 +61,7 @@ function(object,data,...)
 
 `smooth.construct.os.smooth.spec` <- function(object,data,knots)
 
-{  require(splines)
+{  
     m <- object$p.order
     if (length(m)<2) if (is.na(m)) m <- c(3,2)
     object$p.order <- m
@@ -127,7 +127,6 @@ function(object,data,...)
 
 Predict.matrix.ospline.smooth<-function(object,data,drv=0,...){
 # prediction method function for the p.spline smooth class
-  require(splines)
   X <-bs2(data[[object$term]],knots=object$knots,degree=object$m[1],Boundary.knots=c(min(data[[object$term]]),max(data[[object$term]])),intercept=T,drv=drv)
   X
 }
@@ -144,7 +143,6 @@ Predict.matrix.lme <-function(object,data,drv=0,center=T,...)
   n=length(x)
   k=object$knots
   nk <- object$bs.dim
-  require(splines)
   if (class(object)=="ospline.smooth"){
     X <- Predict.matrix.ospline.smooth(object, data,drv=drv)  # Model matrix
 

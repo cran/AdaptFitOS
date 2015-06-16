@@ -5,9 +5,9 @@
 Fits semiparametric
 regression models using the mixed model
 representation of penalized splines with spatially adaptive
-penalties based on the \code{\link[AdaptFit]{asp}} function of the AdaptFit-package (which is based on \code{\link{spm}} function of \code{SemiPar} package). Particular differences to AdaptFit
+penalties based on the \code{\link[AdaptFit]{asp}} function from package AdaptFit. Particular differences to AdaptFit
 include the availability of simultaneous confidence bands and B-spline basis functions and different functionality of the \code{plot} function. However, random effects, autocorrelations and interaction surfaces are not supported.
-Further, only Gaussian responses are supported. Note that in contrast to AdaptFit and SemiPar, estimated curves are centered to have zero mean.
+Further, only Gaussian responses are supported. Note that in contrast to AdaptFit, estimated curves are centered to have zero mean.
 }
 \usage{
 asp2(form, spar.method = "REML", contrasts=NULL, 
@@ -83,7 +83,6 @@ Tatyana Krivobokova \email{tkrivob at gwdg.de}
 \code{\link{lme}} (in package `nlme')
 }
 \examples{
-\dontrun{
 ############
 # Examples as in package AdaptFit
   ## scatterplot smoothing
@@ -99,23 +98,8 @@ Tatyana Krivobokova \email{tkrivob at gwdg.de}
     # Use scb.lty="blank" to plot the shades only.
       plot(y.fit,residuals=TRUE,shade=TRUE,scb.lty="blank")
 
-  ## one more scatterplot smoothing with specified knots and subknots
-    x <- 1:400/400
-    mu <- sqrt(x*(1-x))*sin((2*pi*(1+2^((9-4*6)/5)))/(x+2^((9-4*6)/5)))
-    y <- mu+0.2*rnorm(400)
-
-    kn <- default.knots(x,80)
-    kn.var <- default.knots(kn,20)
-
-    y.fit <- asp2(y~f(x,knots=kn))
-    y.fit2 <- asp2(y~f(x,knots=kn,var.knots=kn.var,adap=TRUE))
-    op <- par(mfrow = c(1, 2))
-    plot(y.fit)
-    plot(y.fit2)
-    par(op)
-
-
-  ## additive models
+ \dontrun{
+ ## additive models
     x1 <- 1:300/300
     x2 <- runif(300)
     mu1 <- exp(-400*(x1-0.6)^2)+
@@ -131,17 +115,21 @@ Tatyana Krivobokova \email{tkrivob at gwdg.de}
     plot(y21.fit)
     par(op)
 
-# Use predict to avoid centering of smooths in case of scatterplot 
-# smoothing
-  library(SemiPar)
-  data(fossil)
-  attach(fossil)
-  fit <- asp2(strontium.ratio~f(age,basis="tps",adap=FALSE))
-  newdata.age <-data.frame(age=seq(90,130,length.out=50) )
-  preds <- predict(fit,newdata=newdata.age,se=FALSE)
-  plot(age,strontium.ratio)
-  lines(newdata.age$age,preds,col="red")
 
+  ## scatterplot smoothing with specified knots and subknots
+    x <- 1:400/400
+    mu <- sqrt(x*(1-x))*sin((2*pi*(1+2^((9-4*6)/5)))/(x+2^((9-4*6)/5)))
+    y <- mu+0.2*rnorm(400)
+
+    kn <- default.knots(x,80)
+    kn.var <- default.knots(kn,20)
+
+    y.fit <- asp2(y~f(x,knots=kn))
+    y.fit2 <- asp2(y~f(x,knots=kn,var.knots=kn.var,adap=TRUE))
+    op <- par(mfrow = c(1, 2))
+    plot(y.fit)
+    plot(y.fit2)
+    par(op)
 
 ##################
 #more examples

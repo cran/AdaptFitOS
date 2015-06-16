@@ -29,10 +29,6 @@ Ruppert, D., Wand, M.P. and Carroll, R.J. (2003)\cr
 \emph{Semiparametric Regression} Cambridge University Press.\cr
 \url{http://stat.tamu.edu/~carroll/semiregbook/}
 
-Ganguli, B. and Wand, M.P. (2005)\cr
-\emph{SemiPar 1.0 Users' Manual}.\cr
-\url{http://www.uow.edu.au/~mwand/SPmanu.pdf}
-
 Wiesenfarth, M., Krivobokova, T., Klasen, S., Sperlich, S. (2012).\cr
 Direct Simultaneous Inference in Additive Models and its Application to Model Undernutrition.
 \emph{Journal of the American Statistical Association}, 107(500): 1286-1296.
@@ -46,14 +42,14 @@ Direct Simultaneous Inference in Additive Models and its Application to Model Un
 }
 
 \examples{
-\dontrun{
+#\dontrun{
 library(SemiPar)
 data(onions)
 attach(onions)
 log.yield <- log(yield)
 fit <- asp2(log.yield~location+f(dens, degree=c(3,2)))
 summary(fit,test1=TRUE,test2=TRUE)
-}
+#}
 }
 \keyword{models} \keyword{smooth} \keyword{regression} 
 

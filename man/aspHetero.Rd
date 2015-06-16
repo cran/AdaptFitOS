@@ -34,7 +34,7 @@ Manuel Wiesenfarth \email{m.wiesenfarth at dkfz de}
 }
 
 \examples{
-\dontrun{
+#\dontrun{
 attach(mcycle)
 
 y=accel
@@ -51,6 +51,6 @@ plot(fit);plot(fith)
 #sigma() returns the fitted varying residual variance
 plot(sort(times),sigma(fith)[order(times)],type="l")
 par(op)
-}
+#}
 }
 \keyword{smooth}

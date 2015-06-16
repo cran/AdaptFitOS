@@ -10,10 +10,10 @@
   char.vec <- as.character(form)
   resp.name <- char.vec[2]
   resp.val <- eval(parse(text = resp.name))
-  rhs <- paste(break.string(char.vec[3]), collapse = "")
+  rhs <- paste(SemiPar::break.string(char.vec[3]), collapse = "")
   rhs <- rm.char(rhs, "\n")
   rhs <- rm.char(rhs, "\t")
-  rhs <- break.string(rhs, "+")
+  rhs <- SemiPar::break.string(rhs, "+")
   lin <- list()
   constrasts <-list()
   pen <- list()

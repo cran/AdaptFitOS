@@ -6,12 +6,12 @@
 Adaptive Semiparametric Regression with Simultaneous Confidence Bands
 }
 \description{
-Based on package \code{AdaptFit} (which is itself based on the \code{SemiPar} package) fits semiparametric regression models with spatially adaptive penalized splines and computes simultaneous confidence bands.
+Based on package \code{AdaptFit}, fits semiparametric regression models with spatially adaptive penalized splines and computes simultaneous confidence bands.
 %Based on the function \code{\link[AdaptFit]{asp}} of the AdaptFit package (which is based on \code{\link{spm}} function of \code{SemiPar} package)
 Particular differences to AdaptFit
 include the availability of simultaneous confidence bands and B-spline basis functions and different functionality of the \code{plot} function. However, random effects, autocorrelations and interaction surfaces are not supported.
-Further, only Gaussian responses are supported. Note that in contrast to AdaptFit and SemiPar, estimated curves are centered to have zero mean. Furthermore, unlike in package SemiPar, dummies for categorical covariates are constructed automatically if
-a variable is given as factor. and unlike SemiPar, categorical covariates are automatically detected.
+Further, only Gaussian responses are supported. Note that in contrast to AdaptFit, estimated curves are centered to have zero mean and dummies for categorical covariates are constructed automatically if
+a variable is given as factor.
 For computation of the critical value for simultaneous confidence bands based on Hotelling's volume-of-tube formula, some functions of the \code{libtube} library by Catherine Loader (see package \code{\link[locfit]{locfit}}) are used.
 See the references for details on the construction of the confidence bands.
 }
@@ -20,7 +20,7 @@ See the references for details on the construction of the confidence bands.
 Package: \tab AdaptFitOS\cr
 Version: \tab 0.42\cr
 Date: \tab 2012-06-03\cr
-Depends: \tab SemiPar, MASS, nlme, cluster\cr
+Depends: \tab MASS, nlme, cluster\cr
 }
 
 Index:
@@ -49,10 +49,6 @@ Manuel Wiesenfarth and Tatyana Krivobokova
 Maintainer: Manuel Wiesenfarth <m.wiesenfarth at dkfz de>
 }
 \references{
-
-Ganguli, B. and Wand, M.P. (2005)\cr
-\emph{SemiPar 1.0 Users' Manual}.\cr
-\url{http://www.uow.edu.au/~mwand/SPmanu.pdf}
 
 Krivobokova, T., Crainiceanu, C.M. and Kauermann, G. (2008)\cr
 Fast Adaptive Penalized Splines.

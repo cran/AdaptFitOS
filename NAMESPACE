@@ -8,6 +8,26 @@ import(
   SemiPar,
   MASS,
   nlme,
-  mgcv,
   splines
 )
+
+importFrom(mgcv, Predict.matrix)
+importFrom(mgcv, get.var)
+
+S3method(plot, scbm)
+S3method(plot, scbTest)
+S3method(print, asp)
+S3method(plot, asp)
+S3method(summary, asp)
+S3method(predict, asp)
+S3method(fitted, asp)
+S3method(residuals, asp)
+
+
+S3method(Predict.matrix, lme)
+S3method(Predict.matrix, ospline.smooth)
+S3method(Predict.matrix, tlspline.smooth)
+#S3method(smooth.construct, os.smooth.spec)
+#S3method(smooth.construct, tl.smooth.spec)
+
+
