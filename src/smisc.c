@@ -43,3 +43,63 @@ Sint *mi, *ind, *meth, *nmeth, *ker;
   for (i=0; i<*nmeth; i++) imeth[i] = meth[i];
   kdeselect(band,x,ind,*h0,*h1,imeth,(int)*nmeth,(int)*ker,(int)mi[MN]);
 }*/
+
+
+/* Registration */
+/*
+#include "R.h"
+#include <Rinternals.h>
+#include <R_ext/Rdynload.h>
+*/
+
+/* 
+void scritval(double *k0, int *d, double *cov, int *m, double *rdf, 
+	      double *z, int *k);
+
+void stailp(double *crit, double *k0, int *m, int *d, double *rdf, 
+	      double *z, int *k);
+*/
+
+/*
+static const R_CMethodDef CEntries[]  = {
+      {"scritval", (DL_FUNC) &scritval, 7},
+      {"stailp", (DL_FUNC) &stailp, 7},
+    {NULL, NULL, 0}
+};
+
+
+
+void R_init_AdaptFitOS(DllInfo *dll)
+{
+    R_registerRoutines(dll, CEntries, NULL, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
+}
+*/
+
+#include <stdlib.h> // for NULL
+#include <R_ext/Rdynload.h>
+
+/* FIXME: 
+   Check these declarations against the C/Fortran source code.
+*/
+
+/* .C calls */
+/* extern void scritval(double *k0, int *d, double *cov, int *m, double *rdf, 
+	      double *z, int *k);
+
+extern void stailp(double *crit, double *k0, int *m, int *d, double *rdf, 
+	      double *z, int *k);
+
+*/
+
+static const R_CMethodDef CEntries[] = {
+    {"scritval", (DL_FUNC) &scritval, 7},
+    {"stailp",   (DL_FUNC) &stailp,   7},
+    {NULL, NULL, 0}
+};
+
+void R_init_AdaptFitOS(DllInfo *dll)
+{
+    R_registerRoutines(dll, CEntries, NULL, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
+}

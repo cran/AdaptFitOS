@@ -8,7 +8,7 @@
 }
 \arguments{ 
   
-\item{object}{a fitted \code{asp} object as produced by \code{asp2()}.}
+\item{object}{a fitted \code{asp} object as produced by \code{asp2()}. Does not work with \code{basis="os"}.}
 
 \item{newdata}{a data frame containing the values of the predictors at
                which predictions are required. The columns should
@@ -39,8 +39,7 @@ standard error estimates are also obtained.}
 
 
 \examples{
-library(SemiPar)
-data(fossil)
+data(fossil,package="SemiPar")
 attach(fossil)
 fit <- asp2(strontium.ratio~f(age, basis="tps"))
 newdata.age <- data.frame(age=c(90,100,110,120,130))

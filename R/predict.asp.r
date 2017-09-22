@@ -45,6 +45,8 @@ predict.asp <- function(object,newdata,se=FALSE,...)
    # Extract type of basis
    
    basis <- object$info$pen$basis
+   if (basis=="os")  stop("predict.asp() currently does not support objects fitted with basis='os', use basis='tps' instead if necessary.")
+
    
    # Build newdata.lin, newdata.pen and 
    # newdata.krige

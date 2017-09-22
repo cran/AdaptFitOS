@@ -26,8 +26,7 @@ variable and the fitted values.}
 }
 
 \examples{
-library(SemiPar)
-data(fossil)
+data(fossil,package="SemiPar")
 attach(fossil)
 fit <- asp2(strontium.ratio~f(age))
 plot(age,residuals(fit))

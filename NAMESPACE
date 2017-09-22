@@ -1,8 +1,10 @@
-useDynLib(AdaptFitOS)
+useDynLib("AdaptFitOS", .registration=TRUE)
 
 # Export all names
-exportPattern(".")
-
+#exportPattern(".")
+exportPattern("asp")
+exportPattern("spm")
+export(airls.ridge, almeAux,arg.searchOS,bdiag,default.knots,scbM,scbTest,sigma)
 # Import all packages listed as Imports or Depends
 import(
   SemiPar,
@@ -13,6 +15,12 @@ import(
 
 importFrom(mgcv, Predict.matrix)
 importFrom(mgcv, get.var)
+  importFrom("grDevices", "dev.interactive", "devAskNewPage", "grey")
+  importFrom("graphics", "abline", "lines", "par", "points", "polygon")
+  importFrom("stats", "as.formula", "binomial", "contrasts", "dist",
+             "fitted", "glm", "glm.fit", "integrate", "lm",
+             "model.matrix", "poisson", "pt", "quantile", "var")
+
 
 S3method(plot, scbm)
 S3method(plot, scbTest)

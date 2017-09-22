@@ -20,7 +20,10 @@
 and non-linear (nonparametric) components. The linear
 table provides coefficient estimates, standard errors
 and p-values. The non-linear table provides degrees of
-freedom values and other information.}
+freedom values and other information.
+
+See Wiesenfarth et al (2011, 2012) and Wiesenfarth (2012) for details on the hypothesis tests. 
+}
 
 \value{The function generates summary tables.}
 
@@ -29,9 +32,15 @@ Ruppert, D., Wand, M.P. and Carroll, R.J. (2003)\cr
 \emph{Semiparametric Regression} Cambridge University Press.\cr
 \url{http://stat.tamu.edu/~carroll/semiregbook/}
 
+Wiesenfarth, M., Krivobokova, T., & Sperlich, S. (2011)\cr A Volume-of-tube based Test for Penalized Splines Estimators. \emph{Int. Statistical Inst.: Proc. 58th World Statistical Congress, 2011, Dublin.} \emph{http://www.2011.isiproceedings.org/papers/950754.pdf}
+
+
 Wiesenfarth, M., Krivobokova, T., Klasen, S., Sperlich, S. (2012).\cr
 Direct Simultaneous Inference in Additive Models and its Application to Model Undernutrition.
 \emph{Journal of the American Statistical Association}, 107(500): 1286-1296.
+
+Wiesenfarth, M. (2012). Estimation and Inference in Special Nonparametric Models. \emph{Doctoral dissertation, Goettingen, Georg-August Universitaet, Diss., 2012}. \emph{http://d-nb.info/104297182X/34}
+
 }
 
 \seealso{
@@ -42,14 +51,11 @@ Direct Simultaneous Inference in Additive Models and its Application to Model Un
 }
 
 \examples{
-#\dontrun{
-library(SemiPar)
-data(onions)
+data(onions,package="SemiPar")
 attach(onions)
 log.yield <- log(yield)
 fit <- asp2(log.yield~location+f(dens, degree=c(3,2)))
 summary(fit,test1=TRUE,test2=TRUE)
-#}
 }
 \keyword{models} \keyword{smooth} \keyword{regression} 
 

@@ -8,3 +8,7 @@
 
 .onLoad <- function(...) {
 }
+
+.onUnload <- function (libpath) {
+  library.dynam.unload("AdaptFitOS", libpath)
+}

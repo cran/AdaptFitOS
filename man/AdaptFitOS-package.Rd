@@ -42,6 +42,8 @@ summary.asp      Semiparametric regression summary
 }
 The function \code{asp2()} is used to fit the model. Using the resulting \code{asp} object, fitted curves or their derivatives can be plotted with \code{\link{plot.asp}} and information on the parametric effects can be printed using \code{\link{summary}}.
 
+See Wiesenfarth et al (2012) for technical details and Wiesenfarth (2012, Chapter 5.1) for some more details on the use of the package (including a demonstration on how plots in Wiesenfarth et al are obtained).
+
 }
 \author{
 Manuel Wiesenfarth and Tatyana Krivobokova
@@ -61,6 +63,9 @@ Simultaneous confidence bands for penalized spline estimators.
 Wiesenfarth, M., Krivobokova, T., Klasen, S., Sperlich, S. (2012).\cr
 Direct Simultaneous Inference in Additive Models and its Application to Model Undernutrition.
 \emph{Journal of the American Statistical Association}, 107(500): 1286-1296.
+
+Wiesenfarth, M. (2012). Estimation and Inference in Special Nonparametric Models. \emph{Doctoral dissertation, Goettingen, Georg-August Universitaet, Diss., 2012}. \emph{http://d-nb.info/104297182X/34}
+
 }
 
 

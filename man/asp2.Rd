@@ -60,6 +60,10 @@ asp2(form, spar.method = "REML", contrasts=NULL,
   \item{aux}{auxiliary information such as variability
    estimates.}
 }
+
+\details{See Wiesenfarth et al (2012) for technical details and Wiesenfarth (2012, Chapter 5.1) for some more details on the use of the package (including a demonstration on how plots in Wiesenfarth et al are obtained).}
+
+
 \references{
 Krivobokova, T., Crainiceanu, C.M. and Kauermann, G. (2008)\cr
 Fast Adaptive Penalized Splines.\emph{ Journal of Computational and
@@ -72,6 +76,9 @@ Ruppert, D., Wand, M.P. and Carroll, R.J. (2003)\cr
 Wiesenfarth, M., Krivobokova, T., Klasen, S., Sperlich, S. (2012).\cr
 Direct Simultaneous Inference in Additive Models and its Application to Model Undernutrition.
 \emph{Journal of the American Statistical Association}, 107(500): 1286-1296.
+
+
+Wiesenfarth, M. (2012). Estimation and Inference in Special Nonparametric Models. \emph{Doctoral dissertation, Goettingen, Georg-August Universitaet, Diss., 2012}. \emph{http://d-nb.info/104297182X/34}
 }
 \author{
 Manuel Wiesenfarth \email{m.wiesenfarth at dkfz de},

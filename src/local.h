@@ -69,7 +69,7 @@
 #else
 
 #ifdef SVERSION
-#include <S.h>
+#include <R.h>
 typedef long int Sint;
 typedef s_object * SEXP;
 #define list_elt(ev,i) LIST_POINTER(ev)[i]
