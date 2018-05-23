@@ -9,7 +9,7 @@
 {
   char.vec <- as.character(form)
   resp.name <- char.vec[2]
-  resp.val <- eval(parse(text = resp.name))
+  resp.val <- eval(parse(text = resp.name),envir=sys.frame(-2))
   rhs <- paste(SemiPar::break.string(char.vec[3]), collapse = "")
   rhs <- rm.char(rhs, "\n")
   rhs <- rm.char(rhs, "\t")

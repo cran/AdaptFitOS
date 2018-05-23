@@ -1,8 +1,9 @@
 \name{summary.asp}
 \alias{summary.asp}
-\title{Semiparametric regression summary}
+\title{Summaries and hypothesis tests}
 \description{Takes a fitted \code{asp} object produced by
-\code{asp2()} and summarises the fit. This function is extensively based on the summary function in package \code{SemiPar}.}
+\code{asp2()} and summarises the fit, including tests for significance of nonparametric effects as well as their deviation from a parametric fit. 
+}
 \usage{
 \method{summary}{asp}(object,test1=FALSE,test2=FALSE,signif=0.05,...)
 }
@@ -20,8 +21,7 @@
 and non-linear (nonparametric) components. The linear
 table provides coefficient estimates, standard errors
 and p-values. The non-linear table provides degrees of
-freedom values and other information.
-
+freedom values and other information including tests for significance of nonparametric effects as well as their deviation from a parametric fit.
 See Wiesenfarth et al (2011, 2012) and Wiesenfarth (2012) for details on the hypothesis tests. 
 }
 

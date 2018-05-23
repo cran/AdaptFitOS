@@ -2,12 +2,14 @@
 \alias{asp2}
 \title{Fit a semiparametric regression model with spatially adaptive penalized splines}
 \description{
-Fits semiparametric
+
+Fits semiparametric additive
 regression models using the mixed model
 representation of penalized splines with spatially adaptive
 penalties based on the \code{\link[AdaptFit]{asp}} function from package AdaptFit. Particular differences to AdaptFit
-include the availability of simultaneous confidence bands and B-spline basis functions and different functionality of the \code{plot} function. However, random effects, autocorrelations and interaction surfaces are not supported.
-Further, only Gaussian responses are supported. Note that in contrast to AdaptFit, estimated curves are centered to have zero mean.
+include the availability of simultaneous confidence bands (also for the derivatives of the smooth curves) and B-spline basis functions and different functionality of the \code{plot} function. However, random effects, autocorrelations and interaction surfaces are not supported.
+Further, only Gaussian responses are supported. Note that in contrast to AdaptFit, estimated curves are centered to have zero mean. 
+See \code{\link{aspHetero}} for incorporation of heteroscedastic errors, \code{\link{scbM}} for some more details on the simulataneous confidence bands and \code{\link{summary.asp}} for computation of associated specification (lack-of-fit) tests.
 }
 \usage{
 asp2(form, spar.method = "REML", contrasts=NULL, 
@@ -106,6 +108,23 @@ Tatyana Krivobokova \email{tkrivob at gwdg.de}
       plot(y.fit,residuals=TRUE,shade=TRUE,scb.lty="blank")
 
  \dontrun{
+  ## Model with heteroscedastic errors
+    attach(mcycle)
+
+    y=accel
+    kn1 <- default.knots(times,20)
+    # fit model with constant residual variance
+      fit= asp2(accel~f(times,basis="os",degree=3,knots=kn1,adap=FALSE),
+  								niter = 20, niter.var = 200)
+
+    # fit model with varying residual variance
+      fith=aspHetero(fit,times,tol=1e-8)
+    op <- par(mfrow = c(1,3))
+    plot(fit);plot(fith)
+    #sigma() returns the fitted varying residual variance
+    plot(sort(times),sigma(fith)[order(times)],type="l")
+    par(op)
+
  ## additive models
     x1 <- 1:300/300
     x2 <- runif(300)
@@ -192,7 +211,7 @@ Tatyana Krivobokova \email{tkrivob at gwdg.de}
     plot(seq(0,1,length.out=42), fit2b$y.cov/fit2b$random.var[85:126],
                 ylab=expression(lambda(x3)),xlab="x3",type="l",lwd=3)
 
-  # compute 95% simultaneous confidence bands.
+  # compute 95\% simultaneous confidence bands.
   # You could skip this and use "fit2b" indstead of "scb2b" later on, however,
   # if N is large, computing the SCBs various times can take some time
   # if you don't need fitted values and bounds for all covariate points
@@ -215,7 +234,9 @@ Tatyana Krivobokova \email{tkrivob at gwdg.de}
     lines(pscb$grid.x[[2]],pscb$fitted[[2]],lwd=3)
     lines(pscb$grid.x[[2]],pscb$ucb[[2]],lty="dotted",lwd=3)
 
-  # plot first derivative of f(x1)
+  # plot first derivative of f(x1). 
+  # Useful to check statistical significance of certain features (such 
+  # as bumps) in a curve.
     scb2bdrv<- scbM(fit2b,drv=1,calc.stdev=FALSE)
     plot(scb2bdrv,select=1)
     #the following would give the same result

@@ -11,7 +11,7 @@ spmArgReadOS <- function(arg.assignment)
 
    arg.name <- out[1]
 
-   arg.val <- eval(parse(text=out[2]),envir=sys.frame(1))
+   arg.val <- eval(parse(text=out[2]),envir=sys.frame(-4)) #,envir=sys.frame(1)
 
    # Extract argument assignment information
 

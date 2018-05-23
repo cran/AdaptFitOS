@@ -12,7 +12,7 @@ Plots fitted curves or their derivatives together with simultaneous confidence b
      			bayes=FALSE, rug=TRUE,...)
 }
 \arguments{
-  \item{x}{an \code{asp} object}
+  \item{x}{an \code{asp} object created by \code{\link{asp}} or \code{\link{aspHetero}}}
   \item{select}{vector specifying which curves in an additive model should be plotted. If NULL, all curves are plotted.}
    \item{drv}{the derivative order. Defaults to 0, i.e. the estimated curves themselves are plotted. First and second derivatives are supported. Does not apply to objects created by \code{\link{scbM}}.}
   \item{bands}{TRUE in order to include simultaneous confidence bands.}

@@ -3,7 +3,7 @@
 \title{Calculate simultaneous confidence bands for penalized splines}
 \description{
 Calculates simultaneous (uniform) confidence bands for the mixed model representation of penalized
-splines based on volume-of-tube formula.
+splines based on volume-of-tube formula. Simultaneous confidence bands cover the entire curve with a prescribed level of confidence and allow us to assess the estimation uncertainty for the whole curve. In contrast to pointwise confidence bands, they permit statements about the statistical significance of certain features in the underlying curve.
 }
 \usage{
 scbM(object,select=NULL,drv=0,level=0.95,div=1000,

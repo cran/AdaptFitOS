@@ -3,44 +3,43 @@
 \alias{AdaptFitOS}
 \docType{package}
 \title{
-Adaptive Semiparametric Regression with Simultaneous Confidence Bands
+\packageTitle{AdaptFitOS}
 }
 \description{
-Based on package \code{AdaptFit}, fits semiparametric regression models with spatially adaptive penalized splines and computes simultaneous confidence bands.
+Based on package \code{AdaptFit}, fits semiparametric regression models with spatially adaptive penalized splines and computes simultaneous confidence bands and associated specification (lack-of-fit) tests.
 %Based on the function \code{\link[AdaptFit]{asp}} of the AdaptFit package (which is based on \code{\link{spm}} function of \code{SemiPar} package)
-Particular differences to AdaptFit
-include the availability of simultaneous confidence bands and B-spline basis functions and different functionality of the \code{plot} function. However, random effects, autocorrelations and interaction surfaces are not supported.
-Further, only Gaussian responses are supported. Note that in contrast to AdaptFit, estimated curves are centered to have zero mean and dummies for categorical covariates are constructed automatically if
-a variable is given as factor.
+%Particular differences to AdaptFit
+%include the availability of simultaneous confidence bands and B-spline basis functions and different functionality of the \code{plot} function. However, random effects, autocorrelations and interaction surfaces are not supported.
+%Further, only Gaussian responses are supported. Note that in contrast to AdaptFit, estimated curves are centered to have zero mean and dummies for categorical covariates are constructed automatically if a variable is given as factor.
 For computation of the critical value for simultaneous confidence bands based on Hotelling's volume-of-tube formula, some functions of the \code{libtube} library by Catherine Loader (see package \code{\link[locfit]{locfit}}) are used.
 See the references for details on the construction of the confidence bands.
 }
-\details{
-\tabular{ll}{
-Package: \tab AdaptFitOS\cr
-Version: \tab 0.42\cr
-Date: \tab 2012-06-03\cr
-Depends: \tab MASS, nlme, cluster\cr
-}
 
-Index:
-\preformatted{
-asp2             Fit a semiparametric regression model with
-                 spatially adaptive penalized
-aspFormula       An asp formula
-aspHetero        Estimate varying residual variance
-fitted.asp       Fitted values for semiparametric regression.
-plot.asp         Plots fitted curves or their derivatives
-                 including simultaneous confidence bands
-plot.scbm        Plots fitted curves in a scbm object
-                 including simultaneous confidence bands
-predict.asp      Semiparametric regression prediction.
-residuals.asp    Residuals for semiparametric regression.
-scbM             Calculate simultaneous confidence bands for
-                 penalized splines
-summary.asp      Semiparametric regression summary
-}
-The function \code{asp2()} is used to fit the model. Using the resulting \code{asp} object, fitted curves or their derivatives can be plotted with \code{\link{plot.asp}} and information on the parametric effects can be printed using \code{\link{summary}}.
+\details{
+The DESCRIPTION file:
+\packageDESCRIPTION{AdaptFitOS}
+\packageIndices{AdaptFitOS}
+
+%Index:
+%\preformatted{
+%asp2             Fit a semiparametric regression model with
+%                 spatially adaptive penalized
+%aspFormula       An asp formula
+%aspHetero        Estimate varying residual variance
+%fitted.asp       Fitted values for semiparametric regression.
+%plot.asp         Plots fitted curves or their derivatives
+%                 including simultaneous confidence bands
+%plot.scbm        Plots fitted curves in a scbm object
+%                 including simultaneous confidence bands
+%predict.asp      Semiparametric regression prediction.
+%residuals.asp    Residuals for semiparametric regression.
+%scbM             Calculate simultaneous confidence bands for
+%                 penalized splines
+%summary.asp      Semiparametric regression summary
+%}
+Model estimation using the mixed model representation of penalized splines in combination with simultaneous probability calculations based on the volume-of-tube formula enable the simultaneous inference directly, that is, without resampling methods.
+
+The function \code{asp2()} is used to fit the model. Using the resulting \code{asp} object, fitted curves or their derivatives can be plotted with \code{\link{plot.asp}} and information on the parametric effects as well as specification tests for the nonparametric effects can be printed using \code{\link{summary.asp}}.
 
 See Wiesenfarth et al (2012) for technical details and Wiesenfarth (2012, Chapter 5.1) for some more details on the use of the package (including a demonstration on how plots in Wiesenfarth et al are obtained).
 

@@ -9,7 +9,7 @@
 {
   arg.list <- substring(term, 3, (nchar(term) - 1))
   var.name <- break.string(arg.list, ",")[1]
-  var.val <- eval(parse(text = var.name) ,envir=sys.frame(-3))    #
+  var.val <- eval(parse(text = var.name),envir=sys.frame(-3))    # 
   out <- arg.searchOS(arg.list, "knots=")
   present <- out$present
   arg <- out$arg
