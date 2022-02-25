@@ -155,7 +155,7 @@ predict.asp <- function(object,newdata,se=FALSE,...)
             data1 <- data.frame(x= (object$info$pen$x)[,ipen,drop=F])
             names(data1) <- object$info$pen$name[ipen]
             CZj1= Predict.matrix.lme(smooth,data1,center=F)
-            if (class(smooth)=="ospline.smooth") Cj1= CZj1$C[,drop=F]  else Cj1= CZj1$C[,-1,drop=F]
+            if (inherits(smooth, "ospline.smooth")) Cj1= CZj1$C[,drop=F]  else Cj1= CZj1$C[,-1,drop=F]
             CZ.temp$C=t(apply(CZ.temp$C,1,function(x) x-colSums(Cj1)/nrow(Cj1)))[,,drop=T]
 
           if (m[1]!=1) C.newdata <- cbind(C.newdata,CZ.temp$C)

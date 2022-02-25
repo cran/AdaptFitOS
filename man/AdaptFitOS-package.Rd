@@ -6,12 +6,12 @@
 \packageTitle{AdaptFitOS}
 }
 \description{
-Based on package \code{AdaptFit}, fits semiparametric regression models with spatially adaptive penalized splines and computes simultaneous confidence bands and associated specification (lack-of-fit) tests.
+Fits semiparametric regression models with spatially adaptive penalized splines and computes simultaneous confidence bands and associated specification (lack-of-fit) tests.
 %Based on the function \code{\link[AdaptFit]{asp}} of the AdaptFit package (which is based on \code{\link{spm}} function of \code{SemiPar} package)
 %Particular differences to AdaptFit
 %include the availability of simultaneous confidence bands and B-spline basis functions and different functionality of the \code{plot} function. However, random effects, autocorrelations and interaction surfaces are not supported.
 %Further, only Gaussian responses are supported. Note that in contrast to AdaptFit, estimated curves are centered to have zero mean and dummies for categorical covariates are constructed automatically if a variable is given as factor.
-For computation of the critical value for simultaneous confidence bands based on Hotelling's volume-of-tube formula, some functions of the \code{libtube} library by Catherine Loader (see package \code{\link[locfit]{locfit}}) are used.
+For computation of the critical value for simultaneous confidence bands based on Hotelling's volume-of-tube formula, some functions of the \code{libtube} library by Catherine Loader (see package \code{locfit}) are used.
 See the references for details on the construction of the confidence bands.
 }
 
@@ -46,8 +46,6 @@ See Wiesenfarth et al (2012) for technical details and Wiesenfarth (2012, Chapte
 }
 \author{
 Manuel Wiesenfarth and Tatyana Krivobokova
-
-Maintainer: Manuel Wiesenfarth <m.wiesenfarth at dkfz de>
 }
 \references{
 
@@ -70,6 +68,5 @@ Wiesenfarth, M. (2012). Estimation and Inference in Special Nonparametric Models
 
 \keyword{ package }
 \seealso{
-\code{\link[SemiPar]{spm}} (package SemiPar),
-\code{\link[AdaptFit]{asp}} (package AdaptFit)
+\code{\link[SemiPar]{spm}} (package SemiPar)
 }

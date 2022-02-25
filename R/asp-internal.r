@@ -143,7 +143,7 @@ Predict.matrix.lme <-function(object,data,drv=0,center=T,...)
   n=length(x)
   k=object$knots
   nk <- object$bs.dim
-  if (class(object)=="ospline.smooth"){
+  if (inherits(object,"ospline.smooth")){
     X <- Predict.matrix.ospline.smooth(object, data,drv=drv)  # Model matrix
 
     d=diag(ncol(X))
@@ -191,7 +191,7 @@ Predict.matrix.lme <-function(object,data,drv=0,center=T,...)
     newknots=seq(min(x),max(x),length=nk+p+1-q+2)[-c(1,nk+p+1-q+2)]
     return(list(C=C,Z=Z, knots=newknots))
   }
-  else if (class(object)=="tlspline.smooth" | class(object)=='trunc.poly') {
+  else if (inherits(object,"tlspline.smooth") | inherits(object, 'trunc.poly')) {
     x<- as.vector(data[[object$term]])
     Z <- outer(x,k,"-")
     Z <- (Z*(Z>0))^m[1]
@@ -206,7 +206,7 @@ Predict.matrix.lme <-function(object,data,drv=0,center=T,...)
       Z=t(apply(Z,1,function(x) x-colSZ/n)) #Z=(diag(rep(1,n))-1/n)%*%Z
       }
   }
-  else if (class(object)=="tps"|class(object)=='ts.smooth'){
+  else if (inherits(object,"tps") | inherits(object, 'ts.smooth')){
     if (is.null(m)) m=object$p.order
     if (is.null(k)) stop("No knots given in smooth.construct.")
     x<- as.vector(data[[object$term]])

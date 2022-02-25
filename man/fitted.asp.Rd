@@ -26,7 +26,6 @@ fitted regression model.}
 \code{\link{predict.asp}},
 \code{\link{summary.asp}},
 \code{\link{residuals.asp}},
-\code{\link{asp}} (package AdaptFit)
 }
 
 \examples{

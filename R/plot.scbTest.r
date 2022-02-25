@@ -26,18 +26,19 @@ function(x,bands=TRUE,grid=50, plot=TRUE,mfrow=NULL,select=NULL,ylim=NULL,xlab=N
 
     if (drv==0){
       CZj.grid= Predict.matrix.lme(fit.mat$smooth[[j]],data.grid)
-      if (class(fit.mat$smooth[[j]])=="ospline.smooth") Cj.grid= CZj.grid$C[,drop=F]  else Cj.grid= CZj.grid$C[,-1,drop=F]
+      if (inherits(fit.mat$smooth[[j]], "ospline.smooth")) Cj.grid= CZj.grid$C[,drop=F]  else Cj.grid= CZj.grid$C[,-1,drop=F]
       Zj.grid= CZj.grid$Z
    #   Xj.grid=  cbind(Cj.grid,Zj.grid)
     }
     else {
-      if (class(fit.mat$smooth[[j]])=="ospline.smooth") {
+      if (inherits(fit.mat$smooth[[j]], "ospline.smooth")){
         CZj.grid <- Predict.matrix.lme(fit.mat$smooth[[j]],data.grid,drv=drv,center=F)
         Cj.grid= CZj.grid$C[,drop=F]
         Zj.grid= CZj.grid$Z
     #    Xj.grid=  cbind(Cj.grid,Zj.grid)
       }
-      else  Xj.grid=drvbasis(grid.x[[j]],degree=fit.mat$smooth[[j]]$m[1],knots=fit.mat$smooth[[j]]$knots,drv=drv,basis=class(fit.mat$smooth[[j]]))[,-1]
+      else  Xj.grid=drvbasis(grid.x[[j]],degree=fit.mat$smooth[[j]]$m[1],
+                             knots=fit.mat$smooth[[j]]$knots,drv=drv,basis=class(fit.mat$smooth[[j]]))[,-1]
     }
 
 

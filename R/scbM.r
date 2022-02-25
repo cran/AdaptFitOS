@@ -1,7 +1,7 @@
 # Function to calculate the simultaneous confidence bands using the bias correction, resulted from the mixed model represenation of penalized splines.
 scbM=function(object,select=NULL,drv=0,level=0.95,div=1000,calc.stdev=TRUE,bayes=FALSE)
 {
-   if (class(object)!="asp") stop("Only asp objects created by asp2() are supported.")
+   if (!inherits(object, "asp")) stop("Only asp objects created by asp2() are supported.")
     fit=object
     x= object$info$pen$x 
     y=object$info$y
@@ -54,14 +54,14 @@ scbM=function(object,select=NULL,drv=0,level=0.95,div=1000,calc.stdev=TRUE,bayes
               names(data.grid) <- names(fit.mat$model)[1+i]
               CZ.temp <- Predict.matrix.lme(fit.mat$smooth[[i]],data.grid)
               if (fit.mat$smooth[[i]]$m[1]==1) CZ.temp$C=matrix(0,n,0)
-              if (class(fit.mat$smooth[[j]])=="ospline.smooth") Cnj=cbind(Cnj,CZ.temp$C)
+              if (inherits(fit.mat$smooth[[j]], "ospline.smooth")) Cnj=cbind(Cnj,CZ.temp$C)
               else Cnj=cbind(Cnj,CZ.temp$C[,-1])
               Znj=cbind(Znj,CZ.temp$Z)
           }
         }
 
 
-        if (class(fit.mat$smooth[[j]])=="ospline.smooth") Cj= CZj$C[,drop=F]  else Cj= CZj$C[,-1,drop=F]
+        if (inherits(fit.mat$smooth[[j]], "ospline.smooth")) Cj= CZj$C[,drop=F]  else Cj= CZj$C[,-1,drop=F]
         if (fit.mat$smooth[[j]]$m[1]==1) Cj=matrix(0,n,0)
         Zj= CZj$Z
         Xj=cbind(Cj,Zj)
@@ -93,19 +93,20 @@ scbM=function(object,select=NULL,drv=0,level=0.95,div=1000,calc.stdev=TRUE,bayes
           names(data.grid) <- names(fit.mat$model)[1+j]
           if (drv==0) {
             CZj.grid <- Predict.matrix.lme(fit.mat$smooth[[j]],data.grid)
-            if (class(fit.mat$smooth[[j]])=="ospline.smooth") Cj.grid= CZj.grid$C[-diffe,,drop=F]  else Cj.grid= CZj.grid$C[-diffe,-1,drop=F]
+            if (inherits(fit.mat$smooth[[j]], "ospline.smooth")) Cj.grid= CZj.grid$C[-diffe,,drop=F]  else Cj.grid= CZj.grid$C[-diffe,-1,drop=F]
             Zj.grid= CZj.grid$Z[-diffe,]
             if (fit.mat$smooth[[j]]$m[1]==1) Cj.grid=matrix(0,nrow(Zj.grid),0)
             Xj.grid=  cbind(Cj.grid,Zj.grid)
           }
           else {
-            if (class(fit.mat$smooth[[j]])=="ospline.smooth") {
+            if (inherits(fit.mat$smooth[[j]], "ospline.smooth")) {
               CZj.grid <- Predict.matrix.lme(fit.mat$smooth[[j]],data.grid,drv=drv,center=F)
               Cj.grid= CZj.grid$C[-diffe,,drop=F]
               Zj.grid= CZj.grid$Z[-diffe,]
               Xj.grid=  cbind(Cj.grid,Zj.grid)
             }
-            else Xj.grid=drvbasis(xx[-diffe],degree=fit.mat$smooth[[j]]$m[1],knots=fit.mat$smooth[[j]]$knots,drv=drv,basis=class(fit.mat$smooth[[j]]))[,-1]
+            else Xj.grid=drvbasis(xx[-diffe],degree=fit.mat$smooth[[j]]$m[1],
+                                  knots=fit.mat$smooth[[j]]$knots,drv=drv,basis=class(fit.mat$smooth[[j]]))[,-1]
           }
           SX <-  tcrossprod(cov.coef12,(Xj.grid))
           SX.norm = sqrt(apply(SX^2, 2, sum))

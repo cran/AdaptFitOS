@@ -34,7 +34,7 @@ standard error estimates are also obtained.}
 }
 
 \seealso{
-\code{\link{plot.asp}}, \code{\link{summary.asp}},\code{\link{asp}} (package AdaptFit)
+\code{\link{plot.asp}}, \code{\link{summary.asp}}
 }
 
 

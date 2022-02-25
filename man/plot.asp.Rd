@@ -44,7 +44,7 @@ If pages=0 (default) all graphics settings are left as they are. }
 \details{
 plot.asp() first calls \code{\link{scbM}} and then plot.scbm() to plot an asp object.
 If plotting takes long (because of a large data set) and you want to plot multiple times with different settings, use \code{\link{scbM}} and then plot the resulting \code{scbm} object with \code{plot.scbm()}.
-Different to packages SemiPar and AdaptFit, estimated fits are centred to have zero mean.
+Estimated fits are centred to have zero mean.
 The simultaneous confidence bands have (approximate) frequentist coverage probabilities with automatic bias correction (see references).
 }
 
@@ -70,9 +70,6 @@ Direct Simultaneous Inference in Additive Models and its Application to Model Un
 
 }
 
-\author{
-Manuel Wiesenfarth \email{m.wiesenfarth at dkfz de}
-}
 
 \seealso{
 \code{\link[SemiPar]{plot.spm}} in package SemiPar

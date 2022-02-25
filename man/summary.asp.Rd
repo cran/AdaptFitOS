@@ -30,7 +30,7 @@ See Wiesenfarth et al (2011, 2012) and Wiesenfarth (2012) for details on the hyp
 \references{
 Ruppert, D., Wand, M.P. and Carroll, R.J. (2003)\cr
 \emph{Semiparametric Regression} Cambridge University Press.\cr
-\url{http://stat.tamu.edu/~carroll/semiregbook/}
+\url{https://web.stat.tamu.edu/~carroll/semiregbook/}
 
 Wiesenfarth, M., Krivobokova, T., & Sperlich, S. (2011)\cr A Volume-of-tube based Test for Penalized Splines Estimators. \emph{Int. Statistical Inst.: Proc. 58th World Statistical Congress, 2011, Dublin.} \emph{http://www.2011.isiproceedings.org/papers/950754.pdf}
 
@@ -45,8 +45,6 @@ Wiesenfarth, M. (2012). Estimation and Inference in Special Nonparametric Models
 
 \seealso{
 \code{\link{plot.asp}}, \code{\link{predict.asp}}
-
-\code{\link{asp}} (package AdaptFit)
 
 }
 

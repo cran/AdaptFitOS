@@ -22,7 +22,7 @@ If FALSE only critical values are computed.}
 }
 \details{Returns a \code{scbm} object and prints critical values.
 The resulting confidence bands have (approximate) frequentist coverage probabilities with automatic bias correction (see references).
-Makes use of the \code{libtube} library by Catherine Loader (see package \code{\link[locfit]{locfit}}).
+Makes use of the \code{libtube} library by Catherine Loader (see package \code{locfit}).
 }
 
 \value{
@@ -46,10 +46,6 @@ Simultaneous confidence bands for penalized spline estimators.
 Wiesenfarth, M., Krivobokova, T., Klasen, S., Sperlich, S. (2012).\cr
 Direct Simultaneous Inference in Additive Models and its Application to Model Undernutrition.
 \emph{Journal of the American Statistical Association}, 107(500): 1286-1296.
-}
-\author{
-Manuel Wiesenfarth \email{m.wiesenfarth at dkfz de},
-Tatyana Krivobokova \email{tkrivob at gwdg de}
 }
 
 \examples{

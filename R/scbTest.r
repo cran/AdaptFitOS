@@ -1,7 +1,7 @@
 `scbTest` <-
 function(object,level=0.95,div=1000,select=NULL,drv=0,calc.stdev=TRUE)
 {
-   if (class(object)!="asp") stop("Only asp objects created by asp2() are supported.")
+   if (!inherits(object,"asp")) stop("Only asp objects created by asp2() are supported.")
    if (object$info$pen$basis!="os") stop("Only B-spline basis functions supported.")
     fit=object
     x= object$info$pen$x #object$x[[2]]

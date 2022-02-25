@@ -21,8 +21,6 @@ variable and the fitted values.}
 
 \seealso{
 \code{\link{plot.asp}}, \code{\link{predict.asp}}, \code{\link{summary.asp}}, \code{\link{fitted.asp}}
-
-\code{\link{asp}} (package AdaptFit)
 }
 
 \examples{

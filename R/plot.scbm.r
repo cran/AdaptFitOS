@@ -60,7 +60,7 @@ plot.scbm=function(x, select=NULL, bands=TRUE,
 
       if (drv==0){
         CZj.grid= Predict.matrix.lme(fit.mat$smooth[[j]],data.grid,center=F)
-        if (class(fit.mat$smooth[[j]])=="ospline.smooth") Cj.grid= CZj.grid$C[,drop=F]  else Cj.grid= CZj.grid$C[,-1,drop=F]
+        if (inherits(fit.mat$smooth[[j]], "ospline.smooth")) Cj.grid= CZj.grid$C[,drop=F]  else Cj.grid= CZj.grid$C[,-1,drop=F]
         Zj.grid= CZj.grid$Z
         if (fit.mat$smooth[[j]]$m[1]==1) Cj.grid=matrix(0,nrow(Zj.grid),0)
         Xj.grid=  cbind(Cj.grid,Zj.grid)
@@ -69,7 +69,7 @@ plot.scbm=function(x, select=NULL, bands=TRUE,
           data1 <- data.frame(x= data[,1+j])
           names(data1) <- names(fit.mat$model)[1+j]
           CZj1= Predict.matrix.lme(fit.mat$smooth[[j]],data1,center=F)
-          if (class(fit.mat$smooth[[j]])=="ospline.smooth") Cj1= CZj1$C[,drop=F]  else Cj1= CZj1$C[,-1,drop=F]
+          if (inherits(fit.mat$smooth[[j]], "ospline.smooth")) Cj1= CZj1$C[,drop=F]  else Cj1= CZj1$C[,-1,drop=F]
           Zj1= CZj1$Z
           if (fit.mat$smooth[[j]]$m[1]==1) Cj1=matrix(0,nrow(Zj1),0)
           Xj1=  cbind(Cj1,Zj1)
@@ -77,7 +77,7 @@ plot.scbm=function(x, select=NULL, bands=TRUE,
           Xj.grid=t(apply(Xj.grid,1,function(z) z-colSums(Xj1)/n))
       }
       else {
-        if (class(fit.mat$smooth[[j]])=="ospline.smooth") {
+        if (inherits(fit.mat$smooth[[j]], "ospline.smooth")) {
           CZj.grid <- Predict.matrix.lme(fit.mat$smooth[[j]],data.grid,drv=drv,center=F)
           Cj.grid= CZj.grid$C[,drop=F]
           Zj.grid= CZj.grid$Z

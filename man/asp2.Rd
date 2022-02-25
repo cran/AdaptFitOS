@@ -6,9 +6,9 @@
 Fits semiparametric additive
 regression models using the mixed model
 representation of penalized splines with spatially adaptive
-penalties based on the \code{\link[AdaptFit]{asp}} function from package AdaptFit. Particular differences to AdaptFit
-include the availability of simultaneous confidence bands (also for the derivatives of the smooth curves) and B-spline basis functions and different functionality of the \code{plot} function. However, random effects, autocorrelations and interaction surfaces are not supported.
-Further, only Gaussian responses are supported. Note that in contrast to AdaptFit, estimated curves are centered to have zero mean. 
+penalties. It
+includes the availability of simultaneous confidence bands (also for the derivatives of the smooth curves) and B-spline basis functions. Note that random effects, autocorrelations and interaction surfaces are not supported.
+Further, only Gaussian responses are supported. Also note that estimated curves are centered to have zero mean. 
 See \code{\link{aspHetero}} for incorporation of heteroscedastic errors, \code{\link{scbM}} for some more details on the simulataneous confidence bands and \code{\link{summary.asp}} for computation of associated specification (lack-of-fit) tests.
 }
 \usage{
@@ -73,7 +73,7 @@ Graphical Statistics. 17(1) 1-20.}
 
 Ruppert, D., Wand, M.P. and Carroll, R.J. (2003)\cr
 \emph{Semiparametric Regression} Cambridge University Press.\cr
-\url{http://stat.tamu.edu/~carroll/semiregbook/}
+\url{https://web.stat.tamu.edu/~carroll/semiregbook/}
 
 Wiesenfarth, M., Krivobokova, T., Klasen, S., Sperlich, S. (2012).\cr
 Direct Simultaneous Inference in Additive Models and its Application to Model Undernutrition.
@@ -82,18 +82,12 @@ Direct Simultaneous Inference in Additive Models and its Application to Model Un
 
 Wiesenfarth, M. (2012). Estimation and Inference in Special Nonparametric Models. \emph{Doctoral dissertation, Goettingen, Georg-August Universitaet, Diss., 2012}. \emph{http://d-nb.info/104297182X/34}
 }
-\author{
-Manuel Wiesenfarth \email{m.wiesenfarth at dkfz de},
-Tatyana Krivobokova \email{tkrivob at gwdg.de}
-}
 \seealso{
 \code{\link{gam}} (in package `mgcv'),
-\code{\link{asp}} (in package `AdaptFit'),
 \code{\link{lme}} (in package `nlme')
 }
 \examples{
 ############
-# Examples as in package AdaptFit
   ## scatterplot smoothing
     x <- 1:1000/1000
     mu <- exp(-400*(x-0.6)^2)+

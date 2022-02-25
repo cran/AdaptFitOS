@@ -11,9 +11,6 @@ sigma(object)
 %\details{
 %%  ~~ If necessary, more details than the description above ~~
 %}
-\author{
-Manuel Wiesenfarth \email{m.wiesenfarth at dkfz de}
-}
 
 \examples{
 #see aspHetero()

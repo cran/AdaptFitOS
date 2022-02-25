@@ -29,9 +29,6 @@ Wiesenfarth, M., Krivobokova, T., Klasen, S., Sperlich, S. (2012).\cr
 Direct Simultaneous Inference in Additive Models and its Application to Model Undernutrition.
 \emph{Journal of the American Statistical Association}, 107(500): 1286-1296.
 }
-\author{
-Manuel Wiesenfarth \email{m.wiesenfarth at dkfz de}
-}
 
 \examples{
 attach(mcycle)
