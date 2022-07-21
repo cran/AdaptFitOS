@@ -9,7 +9,7 @@
 
 void scritval(k0,d,cov,m,rdf,z,k)
 double *k0, *z, *cov, *rdf;
-Sint *d, *m, *k;
+int *d, *m, *k;
 { int i;
 //lf_error = 0;
   for (i=0; i<*k; i++)
@@ -19,7 +19,7 @@ Sint *d, *m, *k;
 
 void stailp(crit,k0,m,d,rdf,z,k)
 double *k0, *z, *crit, *rdf;
-Sint *d, *m, *k;
+int *d, *m, *k;
 { int i;
 //lf_error = 0;
   for (i=0; i<*k; i++)
@@ -38,7 +38,7 @@ int *n;
 
 void kdeb(x,mi,band,ind,h0,h1,meth,nmeth,ker)
 double *x, *band, *h0, *h1;
-Sint *mi, *ind, *meth, *nmeth, *ker;
+int *mi, *ind, *meth, *nmeth, *ker;
 { int i, imeth[10];
   for (i=0; i<*nmeth; i++) imeth[i] = meth[i];
   kdeselect(band,x,ind,*h0,*h1,imeth,(int)*nmeth,(int)*ker,(int)mi[MN]);

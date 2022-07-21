@@ -70,7 +70,7 @@
 
 #ifdef SVERSION
 #include <R.h>
-typedef long int Sint;
+//typedef long int Sint;
 typedef s_object * SEXP;
 #define list_elt(ev,i) LIST_POINTER(ev)[i]
 #define dval2(ev,i,j) NUMERIC_POINTER(list_elt(ev,i))[j]

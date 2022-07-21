@@ -1,4 +1,4 @@
-75fc597c6068a94ccdb0676cd712584e *DESCRIPTION
+a6c07f3f9aa85e4ced766e467192d48c *DESCRIPTION
 cc8099e9f19048566edd3db577624908 *NAMESPACE
 b77af38e5b21a953e154b1a5d9c706b2 *R/acomputeCTRinvC.R
 3c969cb6acff6329f6b34d97656bac2e *R/airls.ridge.R
@@ -30,7 +30,7 @@ c95678bdf49791ffcd1cd2f542063491 *R/sigma.r
 4828b974b78ca084be5b41aa1eda3690 *R/spmDesignOS.r
 db5b54f54d894a3ff4725989b89796cd *R/spmOS.r
 fa18cc059fec9a7c38e1a4cd534bed05 *R/summary.asp.r
-70db24b92434591ad16c2689812a4684 *build/partial.rdb
+63a0f88517563f1620699b7315851558 *build/partial.rdb
 84570951686dd6314493346da85f7421 *inst/CITATION
 d6f8b75dd7fb80c62b2a9dfa985a9906 *man/AdaptFitOS-package.Rd
 97f870b023dac6ad24572c0969ca3243 *man/asp-internal.Rd
@@ -46,9 +46,9 @@ f4c8e2134014cf45ed06263506a4ffeb *man/fitted.asp.Rd
 8270b3abddd7278ee5f8a9a10978beeb *man/sigma.Rd
 eb8ec4f7b3bfce8104bdada543e6f73e *man/summary.asp.Rd
 947d8688ff1d7920c6e27e52a8acb315 *src/dbinom.c
-6cb241501d7897ca166819f271da9cc4 *src/local.h
+7b56445ef18247a0da68900b869fe1b6 *src/local.h
 6cfa46b01d5a5ffd3e75a8f5e0d1e94a *src/mutil.h
 bc7c6a83e8486b45618f2ed5ff9a22eb *src/prob.c
 19029f96030d41d80b2a175bbe773b9c *src/scb_crit.c
-b0ba49ab61796aaa144f08b0b9539dd8 *src/smisc.c
+d14421b3858e011baac2da36957fbc95 *src/smisc.c
 7edf17333cf2b996dafbfccf1ccabc7d *src/tube.h
